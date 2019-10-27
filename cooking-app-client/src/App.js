@@ -17,6 +17,7 @@ function App() {
           <div className="App-body">
             <Switch>
               <Route exact path="/" component={RecipeList} />
+              <Route exact path="/recipes/:id" component={RecipeList} />
               <Route component={NotFoundPage} />
             </Switch>
           </div>

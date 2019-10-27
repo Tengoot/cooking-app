@@ -8,6 +8,11 @@ body {
     background-color: #fafafa;
 }
 
+.Anchor-unstyled {
+    color: inherit;
+    text-decoration: inherit;
+}
+
 .App-header {
     padding: 10px;
     flex-flow: row nowrap;

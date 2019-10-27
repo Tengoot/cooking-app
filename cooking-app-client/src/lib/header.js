@@ -1,5 +1,6 @@
 import logo from '../assets/logo.svg';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
 
@@ -19,13 +20,15 @@ class Header extends React.Component {
   render() {
     return (
       <div id='top-header' className="App-header">
-        <div className="App-logo-container">
-          <img src={logo} className="App-logo" alt="logo" />
-          <div className="App-title">
-            <span>Książka</span>
-            <span>Kucharska</span>
+        <Link className='Anchor-unstyled' to='/'>
+          <div className="App-logo-container">
+            <img src={logo} className="App-logo" alt="logo" />
+            <div className="App-title">
+              <span>Książka</span>
+              <span>Kucharska</span>
+            </div>
           </div>
-        </div>
+        </Link>
         <nav className="Auth-header-buttons">
           <div id="sign-in-button" className="Auth-button">
             <button><span>Zaloguj</span></button>
