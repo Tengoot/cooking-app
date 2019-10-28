@@ -24,7 +24,7 @@ class Header extends React.Component {
           <div className="App-logo-container">
             <img src={logo} className="App-logo" alt="logo" />
             <div className="App-title">
-              <span>Książka</span>
+              <span>Ksiazka</span>
               <span>Kucharska</span>
             </div>
           </div>

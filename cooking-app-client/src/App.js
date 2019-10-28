@@ -1,6 +1,8 @@
 import React from 'react';
 import Header from './lib/header'
 import RecipeList from './lib/recipeList'
+import Recipe from './lib/recipe'
+import Ingredient from './lib/ingredient'
 import Footer from './lib/footer'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NotFoundPage from './lib/notFoundPage'
@@ -17,7 +19,8 @@ function App() {
           <div className="App-body">
             <Switch>
               <Route exact path="/" component={RecipeList} />
-              <Route exact path="/recipes/:id" component={RecipeList} />
+              <Route exact path="/recipes/:id" component={Recipe} />
+              <Route exact path="/ingredients/:id" component={Ingredient} />
               <Route component={NotFoundPage} />
             </Switch>
           </div>
