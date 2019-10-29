@@ -17,7 +17,38 @@ class Header extends React.Component {
     });
   }
 
+  authButtons = () => (
+    <nav className="Auth-header-buttons">
+        <Link className="Anchor-unstyled" to="/sign-in">
+          <div id="sign-in-button" className="Auth-button">
+            <button><span>Zaloguj</span></button>
+          </div>
+        </Link>
+        <Link className="Anchor-unstyled" to="/sign-up">
+          <div id="sign-up-button" className="Auth-button">
+            <button><span>Dołącz teraz</span></button>
+          </div>
+        </Link>
+      </nav>
+  );
+
+  userButtons = () => (
+    <nav className="Auth-header-buttons">
+        <Link className="Anchor-unstyled" to="/recipe/new">
+          <div id="sign-in-button" className="Auth-button">
+            <button><span>Utwórz przepis</span></button>
+          </div>
+        </Link>
+        <Link className="Anchor-unstyled" to="/sign-out">
+          <div id="sign-up-button" className="Auth-button">
+            <button><span>Wyloguj</span></button>
+          </div>
+        </Link>
+      </nav>
+  );
+
   render() {
+    console.log(localStorage.getItem("signedIn"));
     return (
       <div id='top-header' className="App-header">
         <Link className='Anchor-unstyled' to='/'>
@@ -29,14 +60,7 @@ class Header extends React.Component {
             </div>
           </div>
         </Link>
-        <nav className="Auth-header-buttons">
-          <div id="sign-in-button" className="Auth-button">
-            <button><span>Zaloguj</span></button>
-          </div>
-          <div id="sign-up-button" className="Auth-button">
-            <button><span>Dołącz teraz</span></button>
-          </div>
-        </nav>
+        {localStorage.getItem("signedIn") ? this.userButtons() : this.authButtons()}
       </div>
     );
   }

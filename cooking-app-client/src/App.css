@@ -13,6 +13,8 @@ body {
 .Anchor-unstyled {
     color: inherit;
     text-decoration: inherit;
+    margin: 0;
+    clear: both;
 }
 
 .App-header {
@@ -77,7 +79,8 @@ body {
 
 .Auth-button button {
     display: block;
-	margin: 0 auto;
+    margin: 0 auto;
+    cursor: pointer;
 	padding: 0;
 	width: 150px;
 	height: 50px;
@@ -98,6 +101,70 @@ body {
 
 .Auth-button button:focus {
 	outline: none;
+}
+
+.Auth-container {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.Auth-form-body {
+    display: flex;
+    flex-flow: column nowrap;
+    background: white;
+    margin-top: 40px;
+    padding: 30px;
+}
+
+.Auth-form {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.Auth-form-field {
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
+
+.Auth-form-submit button {
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+	width: 150px;
+	height: 40px;
+    border: 2px solid #ffc125;
+	border-radius: 10px;
+	background: transparent;
+	color: #ffc125;
+	letter-spacing: 1px;
+	font-size: 18px;
+	-webkit-transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
+	transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
+}
+
+.Auth-form-submit button:hover {
+    background-color: #ffc125;
+	color: #fff;
+}
+
+.Auth-form-submit button:focus {
+    outline: none;
+}
+
+.App-label-big {
+    margin-top: 40px;
+    font-size: 2.1em;
+    color: #B3D28D;
 }
 
 .App-body {
@@ -323,10 +390,6 @@ body {
 .RecipeIngredient-list {
     padding: 0;
     list-style-type: none;
-}
-
-.RecipeIngredient-item {
-
 }
 
 .User-image-small {
