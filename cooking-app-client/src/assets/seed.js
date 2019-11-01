@@ -423,6 +423,15 @@ const seeds = {
       unit: null,
     },
   ],
+  units: [
+    null,
+    "ml",
+    "g",
+    "L",
+    "Kg",
+    "Łyżki",
+    "Łyżeczki",
+  ],
 };
 
 export default seeds;

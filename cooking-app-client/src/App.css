@@ -410,6 +410,28 @@ body {
     list-style-type: none;
 }
 
+.RecipeIngredient-edit-item {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.RecipeIngredient-edit-item button {
+    border: none;
+    margin: 0;
+    margin-right: 5px;
+    padding: 0;
+    width: auto;
+    overflow: visible;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    line-height: normal;
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
 .User-image-small {
     vertical-align: middle;
     width: 50px;
@@ -425,13 +447,21 @@ body {
 }
 
 .Form-edit input {
+    font-size: 1em;
     margin-right: 5%;
     font-family: 'Quicksand', sans-serif;
 }
 
 .Input-number {
     width: 30px;
-    font-size: 1em;
+}
+
+.Input-wide {
+    width: 50px;
+}
+
+.Input-wider {
+    width: 110px;
 }
 
 span .Input-number {
@@ -447,4 +477,8 @@ span .Input-number {
     outline: none;
     font-family: 'Quicksand', sans-serif;
     font-size: 1em;
+}
+
+.RecipeIngredient-list-form input {
+    margin-right: 0;
 }

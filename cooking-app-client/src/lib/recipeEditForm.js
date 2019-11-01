@@ -2,7 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import seeds from '../assets/seed';
-import RecipeIngredientForm from './recipeIngredientForm'
+import RecipeIngredientListForm from './recipeIngredientListForm'
 
 class RecipeEditForm extends React.Component {
   findOrInitializeRecipe = () => {
@@ -81,9 +81,7 @@ class RecipeEditForm extends React.Component {
             <div className='Recipe-ingredients-title'>
               <span>Składniki dla <input id="peopleCountInput" className="Input-number" type="number" defaultValue={recipe.peopleCount}/> osób:</span>
             </div>
-            <div>
-              <RecipeIngredientForm recipeIngredients={seeds.recipeIngredients} />
-            </div>
+            <RecipeIngredientListForm recipeIngredients={seeds.recipeIngredients} />
             <div className='Recipe-break' />
             <div className='Recipe-label'>Przygotowanie</div>
             <div className='Recipe-description'>
