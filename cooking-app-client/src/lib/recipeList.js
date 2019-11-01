@@ -40,17 +40,25 @@ class RecipeList extends React.Component {
     ));
   }
 
+  newRecipeButton() {
+    if(localStorage.getItem('signedIn')) {
+      return (
+        <Link className="Anchor-unstyled" to="/new">
+          <div id="sign-in-button" className="Button-big">
+            <button><span>Utwórz przepis</span></button>
+          </div>
+        </Link>
+      );
+    }
+  }
+
   render() {
     let recipeLength = this.state.recipes.length;
     const recipeComponents = this.generateRecipeComponents(this.state.recipes);
 
     return(
       <div className='RecipeThumb-List-Container'>
-        <Link className="Anchor-unstyled" to="/new">
-          <div id="sign-in-button" className="Button-big">
-            <button><span>Utwórz przepis</span></button>
-          </div>
-        </Link>
+        {this.newRecipeButton()}
         <div className='RecipeThumb-List'>
           <div className='RecipeThumb-Column'>
             {recipeComponents.slice(0, (recipeLength/2))}
