@@ -2,7 +2,7 @@
   "name": "cooking-app-client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://tengoot.github.io/cookin-app",
+  "homepage": "https://tengoot.github.io/cooking-app",
   "dependencies": {
     "gh-pages": "^2.1.1",
     "react": "^16.10.2",
