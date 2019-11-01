@@ -1,13 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class SignUpComponent extends React.Component {
+  handleSignIn = () => {
+    localStorage.setItem('signedIn', true);
+  }
+
   render() {
     return (
       <div className="Auth-container">
         <div className="App-label-big">Rejestracja</div>
         <div className="Auth-form-body">
-          <form action="" method="get" className="Auth-form">
+          <form action="" method="get" className="Auth-form" onSubmit={this.handleSignIn}>
           <div className="Auth-form-field">
               <label>Nick</label>
               <input type="text" name="nick" id="user-nick"/>
@@ -22,15 +26,17 @@ class SignUpComponent extends React.Component {
             </div>
             <div className="Auth-form-field">
               <label>Potwierdź Hasło</label>
-              <input type="password" name="password-confirmation" id="user-password-confirmation" required />
+              <input type="password" name="password-confirmation" id="user-password-confirmation" />
             </div>
-            <div className="Auth-form-submit">
-              <input type="submit" value="Zarejestruj"/>
+            <div className="Auth-form-submit" onClick={this.handleSignIn}>
+              <button type="submit">Zarejestruj</button>
             </div>
             <label>Lub</label>
-            <div className="Auth-form-submit">
-              <input type="submit" value="Zaloguj"/>
-            </div>
+            <Link className="Anchor-unstyled" to="/sign-in">
+              <div className="Auth-form-submit">
+                <button type="submit">Zaloguj</button>
+              </div>
+            </Link>
           </form>
         </div>
       </div>

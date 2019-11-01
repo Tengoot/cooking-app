@@ -34,7 +34,7 @@ class Header extends React.Component {
 
   userButtons = () => (
     <nav className="Auth-header-buttons">
-        <Link className="Anchor-unstyled" to="/recipe/new">
+        <Link className="Anchor-unstyled" to="/new">
           <div id="sign-in-button" className="Auth-button">
             <button><span>Utwórz przepis</span></button>
           </div>
@@ -60,7 +60,7 @@ class Header extends React.Component {
             </div>
           </div>
         </Link>
-        {localStorage.getItem("signedIn") ? this.userButtons() : this.authButtons()}
+        {this.props.signedIn ? this.userButtons() : this.authButtons()}
       </div>
     );
   }

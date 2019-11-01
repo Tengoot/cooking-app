@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import seeds from '../assets/seed'
 import RecipeIngredientList from './recipeIngredientList'
 
@@ -16,13 +17,32 @@ class Recipe extends React.Component {
     this.setState({ recipe: recipe });
   };
 
+  managementButtons = () => {
+    if (localStorage.getItem("signedIn")) {
+      return (
+        <div className='Recipe-management-buttons'>
+          <Link className="Anchor-unstyled" to={`/recipes/${this.state.recipe.id}/edit`}>
+            <div id="sign-in-button" className="Auth-button">
+              <button><span>Edytuj</span></button>
+            </div>
+          </Link>
+          <div id="sign-in-button" className="Auth-button">
+            <button><span>Usuń</span></button>
+          </div>
+        </div>
+      )
+    }
+  }
+
   render() {
     if (this.state.recipe) {
       return(
         <div className='Recipe-container'>
           <div className='Recipe-comments'>Column for comments</div>
           <div className='Recipe-body'>
-            <img src={this.state.recipe.imageUrl} className='Recipe-image' />
+            <div className="Recipe-image">
+              <img src={this.state.recipe.imageUrl} />
+            </div>
             <div className='Recipe-content'>
               <span className='Recipe-title'>{this.state.recipe.title}</span>
               <div className='Recipe-title-thumb'>
@@ -44,12 +64,6 @@ class Recipe extends React.Component {
               </div>
               <div>
                 <RecipeIngredientList recipeIngredients={seeds.recipeIngredients} />
-                {/* <ul>
-                  <li>około 125-150 ml pesto bazyliowego</li>
-                  <li>400 g makaronu pszennego lub bezglutenowego</li>
-                  <li>tarty parmezan lub wegański parmezan</li>
-                  <li>listy bazylii do ozdoby</li>
-                </ul> */}
               </div>
               <div className='Recipe-break' />
               <div className='Recipe-label'>Przygotowanie</div>
@@ -64,6 +78,9 @@ class Recipe extends React.Component {
                 <span><strong>{this.state.recipe.user.nick}</strong></span>
               </div>
             </div>
+          </div>
+          <div className='Recipe-management'>
+            {this.managementButtons()}
           </div>
         </div>
       );

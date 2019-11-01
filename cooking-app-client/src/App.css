@@ -86,7 +86,7 @@ body {
 	height: 50px;
     border: 2px solid #ffc125;
 	border-radius: 10px;
-	background: transparent;
+    background-color: #fff;
 	color: #ffc125;
 	letter-spacing: 1px;
 	font-size: 18px;
@@ -104,7 +104,7 @@ body {
 }
 
 .Auth-container {
-    display: flex;
+    display: flex; 
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
@@ -318,9 +318,19 @@ body {
 }
 
 .Recipe-image {
+    min-width: 120px;
+    min-height: 120px;
+}
+
+.Recipe-image img {
     object-fit: cover;
-    min-width: 100%;
     width: 100%;
+}
+
+.Recipe-image button {
+    z-index: 1;
+    position: absolute;
+    bottom: 0;
 }
 
 .Recipe-content {
@@ -387,6 +397,14 @@ body {
     align-items: center;
 }
 
+.Recipe-management-buttons {
+    margin-top: 40px;
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 10px;
+    position: fixed;
+}
+
 .RecipeIngredient-list {
     padding: 0;
     list-style-type: none;
@@ -404,4 +422,29 @@ body {
     width: 150px;
     height: 150px;
     border-radius: 50%;
+}
+
+.Form-edit input {
+    margin-right: 5%;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.Input-number {
+    width: 30px;
+    font-size: 1em;
+}
+
+span .Input-number {
+    width: 30px;
+    font-size: 1em;
+    margin: 0;
+}
+
+.Input-textarea {
+    width: 90%;
+    min-height: 100px;
+    max-width: 600px;
+    outline: none;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1em;
 }
