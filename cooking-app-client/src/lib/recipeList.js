@@ -1,6 +1,7 @@
 import React from 'react';
 import seeds from '../assets/seed'
 import RecipeThumb from './recipeThumb'
+import { Link } from 'react-router-dom';
 
 class RecipeList extends React.Component {
   
@@ -45,6 +46,11 @@ class RecipeList extends React.Component {
 
     return(
       <div className='RecipeThumb-List-Container'>
+        <Link className="Anchor-unstyled" to="/new">
+          <div id="sign-in-button" className="Button-big">
+            <button><span>Utwórz przepis</span></button>
+          </div>
+        </Link>
         <div className='RecipeThumb-List'>
           <div className='RecipeThumb-Column'>
             {recipeComponents.slice(0, (recipeLength/2))}

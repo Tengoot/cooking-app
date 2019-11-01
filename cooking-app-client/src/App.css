@@ -187,7 +187,7 @@ body {
     clear: both;
     float: left;
     max-width: 800px;
-    margin: 0 auto;
+    margin-top: 60px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     vertical-align: middle;
@@ -481,4 +481,46 @@ span .Input-number {
 
 .RecipeIngredient-list-form input {
     margin-right: 0;
+}
+
+.Button-big {
+    position: relative;
+	display: inline-block;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.Button-big button {
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+	padding: 0;
+	width: 300px;
+	height: 100px;
+    border: 2px solid #91be5b;
+	border-radius: 10px;
+    background: #fff;
+	color: #91be5b;
+	letter-spacing: 1px;
+	font-size: 2.1em;
+	-webkit-transition: background 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
+    transition: background 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
+}
+
+.Button-big button:hover {
+    background: linear-gradient(-45deg, #ffc125, #91be5b );
+    color: #fff;
+    background-size: 300% 300%;
+    -webkit-animation: gradient 10s ease infinite;
+	        animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient { 
+    0% { background-position: 0% 50% }
+    50% { background-position: 100% 50% }
+    100% { background-position: 0% 50% }
+  }
+
+.Button-big button:focus {
+	outline: none;
 }
