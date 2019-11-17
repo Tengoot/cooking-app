@@ -136,6 +136,7 @@ class SignUpComponent extends React.Component {
             <input className={this.state.passwordConfirmation.valid ? '' : 'Input-invalid'} type="password" name="passwordConfirmation" id="user-password-confirmation" onChange={this.handleChange}/>
           </div>
           <div className="Auth-form-submit">
+            <span className="Form-message-invalid">{this.state.validation.message}</span>
             <button type="submit">Zarejestruj</button>
           </div>
           <label>Lub</label>
