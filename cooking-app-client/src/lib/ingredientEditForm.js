@@ -1,6 +1,8 @@
 import React from 'react';
 import seeds from '../assets/seed';
 import { withRouter } from 'react-router';
+import { compose } from 'redux';
+import { withValidators } from '../HOC/withValidators';
 import { Link, Redirect } from 'react-router-dom';
 
 
@@ -16,30 +18,35 @@ class IngredientEditForm extends React.Component {
         value: ingredient.name,
         valid: true,
         maxSize: 256,
+        validators: [this.props.validateRequiredFields, this.props.validateSizeLimits],
       },
       averagePrice: {
         name: 'averagePrice',
         value: ingredient.averagePrice,
         valid: true,
         maxValue: 1000000000,
+        validators: [this.props.validatePositiveNumbers, this.props.validateValueLimits],
       },
       kcal: {
         name: 'kcal',
         value: ingredient.kcal,
         valid: true,
         maxValue: 1000000000,
+        validators: [this.props.validatePositiveNumbers, this.props.validateValueLimits],
       },
       description: {
         name: 'description',
         value: ingredient.description,
         valid: true,
         maxSize: 16384,
+        validators: [this.props.validateRequiredFields, this.props.validateSizeLimits],
       },
       image: {
         name: 'image',
         value: '',
         valid: true,
         previewUrl: ingredient.imageUrl,
+        validators: [this.props.validateImageExtension]
       },
       validation: {
         valid: true,
@@ -62,95 +69,25 @@ class IngredientEditForm extends React.Component {
 
     const validationState = { valid: true, message: '' };
 
-    this.validateRequiredFields(validationState);
-    this.validatePositiveNumbers(validationState);
-    this.validateSizeLimits(validationState);
-    this.validateValueLimits(validationState);
-    this.validateImageExtension(validationState);
+    this.runValidations(validationState);
     this.setState({ validation: validationState })
   }
 
-  validateRequiredFields = (validationState) => {
-    [this.state.name, this.state.description].forEach((fieldState) => {
-      const value = fieldState.value;
-      const newState = fieldState;
-      const validation = (value || value === '') && (value.length > 0);
-
-      newState.valid = validation;
-      
-      if (!validation && !validationState.message) {
-        validationState.valid = false;
-        validationState.message = 'Złe wartości pól';
-      }
-
-      this.setState({ [fieldState.name]: newState });
-    });
-  };
-
-  validatePositiveNumbers = (validationState) => {
-    [this.state.kcal, this.state.averagePrice].forEach((fieldState) => {
-      const newState = fieldState;
-      const value = newState.value;
-      const validation = value && value > 0;
-
-      newState.valid = validation;
-
-      if (!validation && !validationState.message) {
-        validationState.valid = false;
-        validationState.message = 'Wartości powinny być większe od 0';
-      }
-
-      this.setState({ [fieldState.name]: newState });
-    });
-  };
-
-  validateValueLimits = (validationState) => {
-    [this.state.kcal, this.state.averagePrice].forEach((fieldState) => {
-      const newState = fieldState;
-      const value = newState.value;
-      const validation = value && value <= newState.maxValue;
-
-      newState.valid = validation;
-
-      if (!validation && !validationState.message) {
-        validationState.valid = false;
-        validationState.message = `Wartości powinny być mniejsze niż ${newState.maxValue}`;
-      }
-
-      this.setState({ [fieldState.name]: newState });
-    });
-  }
-
-  validateSizeLimits = (validationState) => {
-    [this.state.name, this.state.description].forEach((fieldState) => {
-      const value = fieldState.value;
-      if (fieldState.valid === true) {
-        const newState = fieldState;
-        const validation = (value || value === '') && (value.length <= fieldState.maxSize);
-        newState.valid = validation;
-        if (!validation && !validationState.message) {
-          validationState.valid = false;
-          validationState.message = 'Za długie teksty';
+  runValidations = (validationState) => {
+    const fieldsToValidate = ['name', 'averagePrice', 'kcal', 'description', 'image'];
+    fieldsToValidate.forEach((fieldName) => {
+      const fieldState = this.state[fieldName];
+      let valid = true;
+      fieldState.validators.forEach((validator) => {
+        if (valid) {
+          const newState = validator(validationState, fieldState);
+          if (!newState.valid) {
+            valid = false;
+            this.setState({ [fieldState.name]: newState })
+          }
         }
-        this.setState({ [fieldState.name]: newState });
-      }
+      });
     })
-  }
-
-  validateImageExtension = (validationState) => {
-    const newState = this.state.image;
-    const value = newState.value;
-    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-    const validation = value && allowedExtensions.test(value);
-
-    newState.valid = validation;
-
-    if (!validation && !validationState.message) {
-      validationState.valid = false;
-      validationState.message = 'Załadowano zły format pliku';
-    }
-
-    this.setState({ image: newState });
   }
 
   handleChange = (event) => {
@@ -265,4 +202,4 @@ class IngredientEditForm extends React.Component {
   }
 };
 
-export default withRouter(IngredientEditForm);
+export default compose(withRouter, withValidators)(IngredientEditForm);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom'
+import { withValidators } from '../HOC/withValidators';
 
 class SignInComponent extends React.Component {
   state = {
@@ -7,11 +8,13 @@ class SignInComponent extends React.Component {
       name: 'login',
       value: '',
       valid: true,
+      validators: [this.props.validateRequiredFields],
     },
     password: {
       name: 'password',
       value: '',
       valid: true,
+      validators: [this.props.validateRequiredFields],
     },
     validation: {
       valid: true,
@@ -22,13 +25,33 @@ class SignInComponent extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault(); 
-    this.setState({ formSubmitted: true, validation: { valid: true, message: '' } })
-    
-    this.validateRequiredFields();
-    this.allValid();
+
+    this.setState({ formSubmitted: true })
+
+    const validationState = { valid: true, message: '' };
+
+    this.runValidations(validationState);
+    this.setState({ validation: validationState })
     if (this.state.validation.valid) {
       localStorage.setItem('signedIn', true);
     } 
+  }
+
+  runValidations = (validationState) => {
+    const fieldsToValidate = ['login', 'password'];
+    fieldsToValidate.forEach((fieldName) => {
+      const fieldState = this.state[fieldName];
+      let valid = true;
+      fieldState.validators.forEach((validator) => {
+        if (valid) {
+          const newState = validator(validationState, fieldState);
+          if (!newState.valid) {
+            valid = false;
+            this.setState({ [fieldState.name]: newState })
+          }
+        }
+      });
+    })
   }
 
   validateRequiredFields = () => {
@@ -48,12 +71,6 @@ class SignInComponent extends React.Component {
       this.setState({ [fieldState.name]: newState, validation: validationState });
     });
   };
-
-  allValid = () => {
-    if (this.state.login.valid && this.state.password.valid) {
-      this.setState({ validation: { message: '', valid: true } })
-    }
-  }
 
   handleChange = (event) => {
     const node = event.target;
@@ -94,4 +111,4 @@ class SignInComponent extends React.Component {
   }
 }
 
-export default SignInComponent;
+export default withValidators(SignInComponent);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { withValidators } from '../HOC/withValidators';
 
 class SignUpComponent extends React.Component {
   state = {
@@ -7,21 +8,25 @@ class SignUpComponent extends React.Component {
       name: 'nick',
       value: '',
       valid: true,
+      validators: [this.props.validateRequiredFields],
     },
     email: {
       name: 'email',
       value: '',
       valid: true,
+      validators: [this.props.validateRequiredFields, this.props.validateEmail],
     },
     password: {
       name: 'password',
       value: '',
       valid: true,
+      validators: [this.props.validateRequiredFields, this.props.validatePassword],
     },
     passwordConfirmation: {
       name: 'passwordConfirmation',
       value: '',
       valid: true,
+      validators: [this.props.validateRequiredFields],
     },
     validation: {
       valid: true,
@@ -36,62 +41,30 @@ class SignUpComponent extends React.Component {
 
     const validationState = { valid: true, message: '' };
 
-    this.validateRequiredFields(validationState);
-    this.passwordFieldValid(validationState);
-    this.emailValidation(validationState);
+    this.runValidations(validationState);
     this.passwordConfirmationValidation(validationState);
     this.setState({ validation: validationState })
-
+    
     if (validationState.valid) {
       localStorage.setItem('signedIn', true);
     } 
   }
 
-  validateRequiredFields = (validationState) => {
-    [this.state.nick, this.state.email,
-     this.state.password, this.state.passwordConfirmation].forEach((fieldState) => {
-      const value = fieldState.value;
-      const newState = fieldState;
-      const validation = (value || value === '') && (value.length > 0);
-
-      newState.valid = validation;
-      
-      if (!validation && !validationState.message) {
-        validationState.valid = false;
-        validationState.message = 'Złe wartości pól';
-      }
-
-      this.setState({ [fieldState.name]: newState });
-    });
-  };
-
-  passwordFieldValid = (validationState) => {
-    const newState = this.state.password;
-    const password = newState.value;
-    const strengthRequirements = [/[a-z]/, /[A-Z]/, /\d/, /\W/];
-    const weak = strengthRequirements.map((regex) => regex.test(password)).includes(false);
-    const validation = password.length >= 8 && !weak;
-
-    newState.valid = validation;
-
-    if (!validation && !validationState.message) {
-      validationState.valid = false;
-      validationState.message = 'Za słabe hasło';
-    }
-
-    this.setState({ password: newState });
-  }
-
-  emailValidation = (validationState) => {
-    const newState = this.state.email;
-    const validation = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.state.email.value);
-    newState.valid = validation;
-    if (!validation && !validationState.message) {
-      validationState.valid = false;
-      validationState.message = 'Zły email';
-    }
-
-    this.setState({ email: newState });
+  runValidations = (validationState) => {
+    const fieldsToValidate = ['nick', 'email', 'password', 'passwordConfirmation'];
+    fieldsToValidate.forEach((fieldName) => {
+      const fieldState = this.state[fieldName];
+      let valid = true;
+      fieldState.validators.forEach((validator) => {
+        if (valid) {
+          const newState = validator(validationState, fieldState);
+          if (!newState.valid) {
+            valid = false;
+            this.setState({ [fieldState.name]: newState })
+          }
+        }
+      });
+    })
   }
 
   passwordConfirmationValidation = (validationState) => {
@@ -159,4 +132,4 @@ class SignUpComponent extends React.Component {
   }
 }
 
-export default SignUpComponent;
+export default withValidators(SignUpComponent);

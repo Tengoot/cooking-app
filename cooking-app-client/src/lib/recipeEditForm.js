@@ -1,7 +1,9 @@
 import React from 'react'
 import { withRouter } from 'react-router';
 import { Link, Redirect } from 'react-router-dom';
+import { compose } from 'redux';
 import seeds from '../assets/seed';
+import { withValidators } from '../HOC/withValidators';
 import RecipeIngredientListForm from './recipeIngredientListForm'
 
 class RecipeEditForm extends React.Component {
@@ -16,36 +18,42 @@ class RecipeEditForm extends React.Component {
         value: recipe.title,
         valid: true,
         maxSize: 256,
+        validators: [this.props.validateRequiredFields, this.props.validateSizeLimits],
       },
       timeToPrepare: {
         name: 'timeToPrepare',
         value: recipe.timeToPrepare,
         valid: true,
         maxSize: 256,
+        validators: [this.props.validateRequiredFields, this.props.validateSizeLimits],
       },
       shortDescription: {
         name: 'shortDescription',
         value: recipe.shortDescription,
         valid: true,
         maxSize: 512,
+        validators: [this.props.validateSizeLimits],
       },
       description: {
         name: 'description',
         value: recipe.description,
         valid: true,
         maxSize: 16384,
+        validators: [this.props.validateRequiredFields, this.props.validateSizeLimits],
       },
       peopleCount: {
         name: 'peopleCount',
         value: recipe.peopleCount || 2,
         valid: true,
         maxValue: 99,
+        validators: [this.props.validatePositiveNumbers, this.props.validateValueLimits],
       },
       image: {
         name: 'image',
         value: '',
         valid: true,
         previewUrl: recipe.imageUrl,
+        validators: [this.props.validateImageExtension]
       },
       validation: {
         valid: true,
@@ -88,91 +96,25 @@ class RecipeEditForm extends React.Component {
 
     const validationState = { valid: true, message: '' };
 
-    this.validateRequiredFields(validationState);
-    this.validatePositiveNumbers(validationState);
-    this.validateValueLimits(validationState);
-    this.validateSizeLimits(validationState);
-    this.validateImageExtension(validationState);
+    this.runValidations(validationState);
     this.setState({ validation: validationState })
   }
 
-  validateRequiredFields = (validationState) => {
-    [this.state.title, this.state.timeToPrepare, this.state.description].forEach((fieldState) => {
-      const value = fieldState.value;
-      const newState = fieldState;
-      const validation = (value || value === '') && (value.length > 0);
-
-      newState.valid = validation;
-      
-      if (!validation && !validationState.message) {
-        validationState.valid = false;
-        validationState.message = 'Złe wartości pól';
-      }
-
-      this.setState({ [fieldState.name]: newState });
-    });
-  };
-
-  validatePositiveNumbers = (validationState) => {
-    const newState = this.state.peopleCount;
-    const value = newState.value;
-    const validation = value && value > 0;
-
-    newState.valid = validation;
-
-    if (!validation && !validationState.message) {
-      validationState.valid = false;
-      validationState.message = 'Wartości powinny być większe od 0';
-    }
-
-    this.setState({ peopleCount: newState });
-  }
-
-  validateValueLimits = (validationState) => {
-    const newState = this.state.peopleCount;
-    const value = newState.value;
-    const validation = value && value <= newState.maxValue;
-
-    newState.valid = validation;
-
-    if (!validation && !validationState.message) {
-      validationState.valid = false;
-      validationState.message = `Wartości powinny być mniejsze niż ${newState.maxValue}`;
-    }
-
-    this.setState({ peopleCount: newState });
-  }
-
-  validateSizeLimits = (validationState) => {
-    [this.state.title, this.state.timeToPrepare, this.state.shortDescription, this.state.description].forEach((fieldState) => {
-      const value = fieldState.value;
-      if (fieldState.valid === true) {
-        const newState = fieldState;
-        const validation = (value || value === '') && (value.length <= fieldState.maxSize);
-        newState.valid = validation;
-        if (!validation && !validationState.message) {
-          validationState.valid = false;
-          validationState.message = 'Za długie teksty';
+  runValidations = (validationState) => {
+    const fieldsToValidate = ['title', 'timeToPrepare', 'shortDescription', 'description', 'peopleCount', 'image'];
+    fieldsToValidate.forEach((fieldName) => {
+      const fieldState = this.state[fieldName];
+      let valid = true;
+      fieldState.validators.forEach((validator) => {
+        if (valid) {
+          const newState = validator(validationState, fieldState);
+          if (!newState.valid) {
+            valid = false;
+            this.setState({ [fieldState.name]: newState })
+          }
         }
-        this.setState({ [fieldState.name]: newState });
-      }
+      });
     })
-  }
-
-  validateImageExtension = (validationState) => {
-    const newState = this.state.image;
-    const value = newState.value;
-    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-    const validation = value && allowedExtensions.test(value);
-
-    newState.valid = validation;
-
-    if (!validation && !validationState.message) {
-      validationState.valid = false;
-      validationState.message = 'Załadowano zły format pliku';
-    }
-
-    this.setState({ image: newState });
   }
 
   handleChange = (event) => {
@@ -202,7 +144,7 @@ class RecipeEditForm extends React.Component {
 
   formComponents = () => {
     const recipe = this.state.recipe;
-    
+
     return(
       <form className="Recipe-container" onSubmit={this.handleSubmit}>
         <div></div>
@@ -307,4 +249,7 @@ class RecipeEditForm extends React.Component {
   }
 }
 
-export default withRouter(RecipeEditForm);
+export default compose(
+  withRouter,
+  withValidators,
+)(RecipeEditForm)
