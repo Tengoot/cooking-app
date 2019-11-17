@@ -80,7 +80,9 @@ class Recipe extends React.Component {
             </div>
           </div>
           <div className='Recipe-management'>
-            {this.managementButtons()}
+            <div className='Recipe-management-content'>
+              {this.managementButtons()}
+            </div>
           </div>
         </div>
       );

@@ -396,13 +396,19 @@ body {
     justify-content: center;
     align-items: center;
 }
+.Recipe-management-content {
+    margin-top: 40px;
+    position: fixed;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
 
 .Recipe-management-buttons {
-    margin-top: 40px;
     display: flex;
     flex-flow: row nowrap;
     padding: 10px;
-    position: fixed;
 }
 
 .RecipeIngredient-list {
@@ -523,4 +529,17 @@ span .Input-number {
 
 .Button-big button:focus {
 	outline: none;
+}
+
+.Input-invalid {
+    box-shadow: 0 0 3px #CC0000;
+}
+
+.Form-message-invalid {
+    font-size: 1em;
+    color: #CC0000;
+}
+
+.hidden {
+    display: none;
 }
