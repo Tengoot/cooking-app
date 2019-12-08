@@ -3,7 +3,7 @@ import React from 'react';
 export function withValidators(WrappedComponent) {
   return class extends React.Component {
     validateRequiredFields = (validationState, fieldState) => {
-      return this.validate(
+      return this.generateValidationState(
         validationState,
         fieldState,
         'Złe wartości pól',
@@ -12,7 +12,7 @@ export function withValidators(WrappedComponent) {
     };
 
     validatePositiveNumbers = (validationState, fieldState) => {
-      return this.validate(
+      return this.generateValidationState(
         validationState,
         fieldState,
         'Wartości powinny być większe od 0',
@@ -21,7 +21,7 @@ export function withValidators(WrappedComponent) {
     }
 
     validateValueLimits = (validationState, fieldState) => {
-      return this.validate(
+      return this.generateValidationState(
         validationState,
         fieldState,
         'Zbyt duże wartości',
@@ -30,7 +30,7 @@ export function withValidators(WrappedComponent) {
     }
 
     validateSizeLimits = (validationState, fieldState) => {
-      return this.validate(
+      return this.generateValidationState(
         validationState,
         fieldState,
         'Za długie teksty',
@@ -39,7 +39,7 @@ export function withValidators(WrappedComponent) {
     }
 
     validateImageExtension = (validationState, fieldState) => {
-      return this.validate(
+      return this.generateValidationState(
         validationState,
         fieldState,
         'Załadowano zły format pliku',
@@ -48,18 +48,18 @@ export function withValidators(WrappedComponent) {
     }
 
     validatePassword = (validationState, fieldState) => {
-      return this.validate(
+      return this.generateValidationState(
         validationState,
         fieldState,
         'Za słabe hasło',
         (value, _state) => {
-          return (value && value.length >= 8) && !([/[a-z]/, /[A-Z]/, /\d/, /\W/].map((regex) => regex.test(value)).includes(false));
+          return ((value || value === '') && value.length >= 8) && !([/[a-z]/, /[A-Z]/, /\d/, /\W/].map((regex) => regex.test(value)).includes(false));
         },
       )
     }
 
     validateEmail = (validationState, fieldState) => {
-      return this.validate(
+      return this.generateValidationState(
         validationState,
         fieldState,
         'Zły format email',
@@ -67,7 +67,7 @@ export function withValidators(WrappedComponent) {
       )
     }
 
-    validate = (validationState, fieldState, errorMessage, validatingFunction) => {
+    generateValidationState = (validationState, fieldState, errorMessage, validatingFunction) => {
       const newState = fieldState;
       const value = fieldState.value;
       const validation = validatingFunction(value, newState);
