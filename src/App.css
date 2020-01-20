@@ -10,6 +10,13 @@ body {
     font-family: 'Quicksand', sans-serif;
 }
 
+a {
+    color: inherit;
+    text-decoration: inherit;
+    margin: 0;
+    clear: both;
+}
+
 .Anchor-unstyled {
     color: inherit;
     text-decoration: inherit;

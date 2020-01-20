@@ -1,6 +1,7 @@
 import logo from '../assets/logo.svg';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from '../routing/Link';
+import SignOutAction from './SignOutAction';
 
 class Header extends React.Component {
 
@@ -39,16 +40,11 @@ class Header extends React.Component {
             <button><span>Utwórz przepis</span></button>
           </div>
         </Link>
-        <Link className="Anchor-unstyled" to="/sign-out">
-          <div id="sign-up-button" className="Auth-button">
-            <button><span>Wyloguj</span></button>
-          </div>
-        </Link>
+        <SignOutAction />
       </nav>
   );
 
   render() {
-    console.log(localStorage.getItem("signedIn"));
     return (
       <div id='top-header' className="App-header">
         <Link className='Anchor-unstyled' to='/'>
@@ -60,7 +56,7 @@ class Header extends React.Component {
             </div>
           </div>
         </Link>
-        {this.props.signedIn ? this.userButtons() : this.authButtons()}
+        {this.props.viewer ? this.userButtons() : this.authButtons()}
       </div>
     );
   }
