@@ -946,12 +946,13 @@ type Recipe implements Node {
   comments: [Comment!]!
   description: String!
   id: ID!
-  imageDataUri: String
+  imageUrl: String
   peopleCount: Int!
   recipeIngredients: [RecipeIngredient!]!
   shortDescription: String
   timeToPrepare: String!
   title: String!
+  user: User!
 }
 
 """
@@ -1200,7 +1201,7 @@ type ToggleShoppingListItemMutationPayload {
 }
 
 type User implements Node {
-  avatarDataUri: String
+  avatarUrl: String
   email: String!
   favoriteRecipesCount: Int!
   followedUsersCount: Int!

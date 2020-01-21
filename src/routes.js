@@ -53,6 +53,23 @@ const routes = [
         exact: true,
         component: JSResource('SignUpAction', () => import('./lib/SignUpAction')),
         prepare: params => {},
+      },
+      {
+        path: '/recipes/:id',
+        component: JSResource('RecipeDetailRoot', () => import('./lib/RecipeDetailRoot')),
+        prepare: params => {
+          const RecipeDetailQuery = require('./lib/__generated__/RecipeDetailRootQuery.graphql');
+          return {
+            RecipeDetailQuery: preloadQuery(
+              RelayEnvironment,
+              RecipeDetailQuery,
+              {
+                id: params.id,
+              },
+              { fetchPolicy: 'store-or-network' },
+            )
+          }
+        }
       }
     ],
   },

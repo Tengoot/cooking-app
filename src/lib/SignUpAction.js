@@ -13,7 +13,7 @@ const SignInMutation = graphql`
       user {
         id
         nick
-        avatarDataUri
+        avatarUrl
       }
     }
   }

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 1714e7839f4cf27fcc5488ab97b456e7
+ * @relayHash 5821b097b63ed0b53753d05d0a434ef7
  */
 
 /* eslint-disable */
@@ -23,7 +23,7 @@ export type SignUpActionSignUpMutationResponse = {|
     +user: ?{|
       +id: string,
       +nick: string,
-      +avatarDataUri: ?string,
+      +avatarUrl: ?string,
     |}
   |}
 |};
@@ -42,7 +42,7 @@ mutation SignUpActionSignUpMutation(
     user {
       id
       nick
-      avatarDataUri
+      avatarUrl
     }
   }
 }
@@ -99,7 +99,7 @@ v1 = [
           {
             "kind": "ScalarField",
             "alias": null,
-            "name": "avatarDataUri",
+            "name": "avatarUrl",
             "args": null,
             "storageKey": null
           }
@@ -128,11 +128,11 @@ return {
     "operationKind": "mutation",
     "name": "SignUpActionSignUpMutation",
     "id": null,
-    "text": "mutation SignUpActionSignUpMutation(\n  $input: SignUpMutationInput!\n) {\n  signUp(input: $input) {\n    user {\n      id\n      nick\n      avatarDataUri\n    }\n  }\n}\n",
+    "text": "mutation SignUpActionSignUpMutation(\n  $input: SignUpMutationInput!\n) {\n  signUp(input: $input) {\n    user {\n      id\n      nick\n      avatarUrl\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '295829188a4cc22b4cb85de068da4bd3';
+(node/*: any*/).hash = 'c8bc49f565dcf9e9160ae668c467643e';
 module.exports = node;
