@@ -30,6 +30,7 @@ export default function signOutAction() {
           input: {}
         },
         updater: store => {
+          localStorage.removeItem('signedIn');
           router.history.push('/');
         }
       })

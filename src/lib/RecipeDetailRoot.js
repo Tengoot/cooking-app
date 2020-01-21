@@ -3,6 +3,7 @@ import graphql from 'babel-plugin-relay/macro';
 import { usePreloadedQuery } from 'react-relay/hooks';
 import ReactMarkdown from 'react-markdown';
 import SuspenseImage from '../SuspenseImage';
+import RecipeManagementActions from './RecipeManagementActions'
 
 export default function RecipeDetailRoot(props) {
   const { node: recipe } = usePreloadedQuery(
@@ -16,6 +17,7 @@ export default function RecipeDetailRoot(props) {
             description
             imageUrl
             peopleCount
+            createdAt
             recipeIngredients {
               id
               amount
@@ -27,6 +29,7 @@ export default function RecipeDetailRoot(props) {
             }
             averageRating
             user {
+              id
               nick
               avatarUrl
             }
@@ -46,7 +49,9 @@ export default function RecipeDetailRoot(props) {
       <div className='Recipe-comments'>Column for comments</div>
       <div className='Recipe-body'>
         <div className="Recipe-image">
-          <img src={recipe.imageUrl} />
+        <SuspenseImage
+          src={recipe.imageUrl || 'https://via.placeholder.com/500'}
+        />
         </div>
         <div className='Recipe-content'>
           <span className='Recipe-title'>{recipe.title}</span>
@@ -56,7 +61,7 @@ export default function RecipeDetailRoot(props) {
           </div>
           <div className='Recipe-break' />
           <div className='Recipe-author-small'>
-            <img src={recipe.user.imageUrl} className='User-image-small' />
+            <SuspenseImage src={recipe.user.imageUrl || "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX30777075.jpg"} className='User-image-small' />
             <span><strong>{recipe.user.nick}</strong></span>
           </div>
           <div className='Recipe-break' />
@@ -79,14 +84,14 @@ export default function RecipeDetailRoot(props) {
           <div className='Recipe-user-space'>
             <div className='Recipe-label'>Przepis opublikowany przez</div>
             <div className='Recipe-break' />
-            <img src={recipe.user.imageUrl} className='User-image-big' />
+            <SuspenseImage src={recipe.user.imageUrl || "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX30777075.jpg"} className='User-image-big' />
             <span><strong>{recipe.user.nick}</strong></span>
           </div>
         </div>
       </div>
       <div className='Recipe-management'>
         <div className='Recipe-management-content'>
-          {/* {this.managementButtons()} */}
+          {RecipeManagementActions(recipe)}
         </div>
       </div>
     </div>

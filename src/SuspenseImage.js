@@ -2,7 +2,7 @@ import React from 'react';
 import JSResource from './JSResource';
 
 export default function SuspenseImage(props) {
-  const { src } = props;
+  let { src } = props;
   if (src != null) {
     // JSResource is meant for loading resources, but the implementation is
     // just cached loading of promises. So we reuse that here as a quick
@@ -10,6 +10,9 @@ export default function SuspenseImage(props) {
     // we encouter the same image twice (in that case, we'll create
     // new loader *functions*, but JSResource will return a cached
     // value and only load the iamge once.
+
+    src = 'http://localhost:3000' + src;
+
     const resource = JSResource(src, () => {
       return new Promise(resolve => {
         const img = new Image();

@@ -26,13 +26,6 @@ async function fetchQuery(
 
   if (Array.isArray(json.errors)) {
     console.log(json.errors);
-    throw new Error(
-      `Error fetching GraphQL query '${
-        operation.name
-      }' with variables '${JSON.stringify(variables)}': ${JSON.stringify(
-        json.errors,
-      )}`,
-    );
   }
 
   return json;

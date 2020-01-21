@@ -3,6 +3,7 @@ import React from 'react';
 import UseMutation from '../UseMutation';
 import { validateRequiredFields } from '../Validators'
 import RoutingContext from '../routing/RoutingContext'
+import { toast } from 'react-toastify';
 
 const { useCallback, useState, useContext } = React;
 
@@ -13,6 +14,7 @@ const SignInMutation = graphql`
         id
         nick
         avatarUrl
+        role
       }
     }
   }
@@ -81,8 +83,24 @@ export default function signInAction() {
               password: password.value,
             },
           },
-          updater: store => {
-            router.history.push('/');
+          updater: (store, response) => {
+            const result = store.getRootField('signIn');
+            if (result) {
+              const resultId = response.signIn.user.id;
+              const role = response.signIn.user.role;
+              localStorage.setItem('signedIn', resultId);
+              localStorage.setItem('role', role);
+              router.history.push('/');
+            } else {
+              toast.error('Błędny login lub hasło', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+              })
+            }
           },
         });
       }

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash b626810c48689050b01e1c18573332f9
+ * @relayHash d1ffa2948bc91dee23488416559d40ea
  */
 
 /* eslint-disable */
@@ -9,6 +9,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+export type UserRoleEnum = "ADMIN" | "MODERATOR" | "USER" | "%future added value";
 export type SignInMutationInput = {|
   clientMutationId?: ?string,
   nick: string,
@@ -23,6 +24,7 @@ export type SignInActionSignInMutationResponse = {|
       +id: string,
       +nick: string,
       +avatarUrl: ?string,
+      +role: UserRoleEnum,
     |}
   |}
 |};
@@ -42,6 +44,7 @@ mutation SignInActionSignInMutation(
       id
       nick
       avatarUrl
+      role
     }
   }
 }
@@ -101,6 +104,13 @@ v1 = [
             "name": "avatarUrl",
             "args": null,
             "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "role",
+            "args": null,
+            "storageKey": null
           }
         ]
       }
@@ -127,11 +137,11 @@ return {
     "operationKind": "mutation",
     "name": "SignInActionSignInMutation",
     "id": null,
-    "text": "mutation SignInActionSignInMutation(\n  $input: SignInMutationInput!\n) {\n  signIn(input: $input) {\n    user {\n      id\n      nick\n      avatarUrl\n    }\n  }\n}\n",
+    "text": "mutation SignInActionSignInMutation(\n  $input: SignInMutationInput!\n) {\n  signIn(input: $input) {\n    user {\n      id\n      nick\n      avatarUrl\n      role\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '2dd7b814a58a2688eb044bb4ecbf515e';
+(node/*: any*/).hash = 'ceec9121233a681f736444e6a80c8e91';
 module.exports = node;

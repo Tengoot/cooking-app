@@ -5,6 +5,7 @@
   "homepage": "http://cooking-app.bartoszkowalski.tech/",
   "dependencies": {
     "gh-pages": "^2.2.0",
+    "glamor": "^2.20.40",
     "history": "^4.10.1",
     "react": "0.0.0-experimental-f42431abe",
     "react-dom": "0.0.0-experimental-f42431abe",
@@ -15,6 +16,7 @@
     "react-router-dom": "^5.1.2",
     "react-router-relay": "^0.14.0",
     "react-scripts": "^3.3.0",
+    "react-toastify": "^5.5.0",
     "relay-runtime": "8.0.0"
   },
   "scripts": {

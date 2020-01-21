@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 947e82858de9acdb6f6e6cacef50eb4d
+ * @relayHash f3fc6cb2bb56dba9ef8f29542264b902
  */
 
 /* eslint-disable */
@@ -20,6 +20,7 @@ export type RecipeDetailRootQueryResponse = {|
     +description?: string,
     +imageUrl?: ?string,
     +peopleCount?: number,
+    +createdAt?: string,
     +recipeIngredients?: $ReadOnlyArray<{|
       +id: string,
       +amount: number,
@@ -31,6 +32,7 @@ export type RecipeDetailRootQueryResponse = {|
     |}>,
     +averageRating?: number,
     +user?: {|
+      +id: string,
       +nick: string,
       +avatarUrl: ?string,
     |},
@@ -56,6 +58,7 @@ query RecipeDetailRootQuery(
       description
       imageUrl
       peopleCount
+      createdAt
       recipeIngredients {
         id
         amount
@@ -68,9 +71,9 @@ query RecipeDetailRootQuery(
       }
       averageRating
       user {
+        id
         nick
         avatarUrl
-        id
       }
     }
     id
@@ -139,51 +142,70 @@ v7 = {
 v8 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "amount",
+  "name": "createdAt",
   "args": null,
   "storageKey": null
 },
 v9 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "unit",
+  "name": "amount",
   "args": null,
   "storageKey": null
 },
 v10 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "name",
+  "name": "unit",
   "args": null,
   "storageKey": null
 },
 v11 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "averagePrice",
+  "name": "name",
   "args": null,
   "storageKey": null
 },
 v12 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "averageRating",
+  "name": "averagePrice",
   "args": null,
   "storageKey": null
 },
 v13 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "nick",
+  "name": "averageRating",
   "args": null,
   "storageKey": null
 },
 v14 = {
-  "kind": "ScalarField",
+  "kind": "LinkedField",
   "alias": null,
-  "name": "avatarUrl",
+  "name": "user",
+  "storageKey": null,
   "args": null,
-  "storageKey": null
+  "concreteType": "User",
+  "plural": false,
+  "selections": [
+    (v2/*: any*/),
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "nick",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "avatarUrl",
+      "args": null,
+      "storageKey": null
+    }
+  ]
 };
 return {
   "kind": "Request",
@@ -213,6 +235,7 @@ return {
               (v5/*: any*/),
               (v6/*: any*/),
               (v7/*: any*/),
+              (v8/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -223,8 +246,8 @@ return {
                 "plural": true,
                 "selections": [
                   (v2/*: any*/),
-                  (v8/*: any*/),
                   (v9/*: any*/),
+                  (v10/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -234,26 +257,14 @@ return {
                     "concreteType": "Ingredient",
                     "plural": false,
                     "selections": [
-                      (v10/*: any*/),
-                      (v11/*: any*/)
+                      (v11/*: any*/),
+                      (v12/*: any*/)
                     ]
                   }
                 ]
               },
-              (v12/*: any*/),
-              {
-                "kind": "LinkedField",
-                "alias": null,
-                "name": "user",
-                "storageKey": null,
-                "args": null,
-                "concreteType": "User",
-                "plural": false,
-                "selections": [
-                  (v13/*: any*/),
-                  (v14/*: any*/)
-                ]
-              }
+              (v13/*: any*/),
+              (v14/*: any*/)
             ]
           }
         ]
@@ -291,6 +302,7 @@ return {
               (v5/*: any*/),
               (v6/*: any*/),
               (v7/*: any*/),
+              (v8/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -301,8 +313,8 @@ return {
                 "plural": true,
                 "selections": [
                   (v2/*: any*/),
-                  (v8/*: any*/),
                   (v9/*: any*/),
+                  (v10/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": null,
@@ -312,28 +324,15 @@ return {
                     "concreteType": "Ingredient",
                     "plural": false,
                     "selections": [
-                      (v10/*: any*/),
                       (v11/*: any*/),
+                      (v12/*: any*/),
                       (v2/*: any*/)
                     ]
                   }
                 ]
               },
-              (v12/*: any*/),
-              {
-                "kind": "LinkedField",
-                "alias": null,
-                "name": "user",
-                "storageKey": null,
-                "args": null,
-                "concreteType": "User",
-                "plural": false,
-                "selections": [
-                  (v13/*: any*/),
-                  (v14/*: any*/),
-                  (v2/*: any*/)
-                ]
-              }
+              (v13/*: any*/),
+              (v14/*: any*/)
             ]
           }
         ]
@@ -344,11 +343,11 @@ return {
     "operationKind": "query",
     "name": "RecipeDetailRootQuery",
     "id": null,
-    "text": "query RecipeDetailRootQuery(\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ... on Recipe {\n      id\n      title\n      shortDescription\n      description\n      imageUrl\n      peopleCount\n      recipeIngredients {\n        id\n        amount\n        unit\n        ingredient {\n          name\n          averagePrice\n          id\n        }\n      }\n      averageRating\n      user {\n        nick\n        avatarUrl\n        id\n      }\n    }\n    id\n  }\n}\n",
+    "text": "query RecipeDetailRootQuery(\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ... on Recipe {\n      id\n      title\n      shortDescription\n      description\n      imageUrl\n      peopleCount\n      createdAt\n      recipeIngredients {\n        id\n        amount\n        unit\n        ingredient {\n          name\n          averagePrice\n          id\n        }\n      }\n      averageRating\n      user {\n        id\n        nick\n        avatarUrl\n      }\n    }\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '297fe8464f660f19e73fc0f89aa74369';
+(node/*: any*/).hash = 'fcd32fdde1dc23fbab043993c8de3920';
 module.exports = node;

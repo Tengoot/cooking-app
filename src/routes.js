@@ -11,10 +11,7 @@ const routes = [
         rootQuery: preloadQuery(
           RelayEnvironment,
           RootQuery,
-          {
-            owner: 'Bartosz',
-            name: 'relay',
-          },
+          {},
           // The fetchPolicy allows us to specify whether to render from cached
           // data if possible (store-or-network) or only fetch from network
           // (network-only).
@@ -33,10 +30,7 @@ const routes = [
             userQuery: preloadQuery(
               RelayEnvironment,
               userQuery,
-              {
-                owner: 'Bartosz',
-                name: 'relay',
-              },
+              {},
               { fetchPolicy: 'store-or-network' },
             ),
           };

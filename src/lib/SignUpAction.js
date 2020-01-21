@@ -4,6 +4,7 @@ import UseMutation from '../UseMutation';
 import { validateRequiredFields, validateEmail, validatePassword } from '../Validators'
 import RoutingContext from '../routing/RoutingContext';
 import Link from '../routing/Link';
+import { toast } from 'react-toastify';
 
 const { useCallback, useState, useContext } = React;
 
@@ -118,7 +119,22 @@ export default function signUpAction() {
             },
           },
           updater: store => {
-            router.history.push('/');
+            const result = store.getRootField('signUp');
+            if (result && result.getLinkedRecord('user')) {
+              localStorage.setItem('signedIn', result.getLinkedRecord('user').getDataId());
+              router.history.push('/');
+            } else {
+              result.getLinkedRecord('errors').forEach((error) => {
+                toast.error(error, {
+                  position: "top-center",
+                  autoClose: 3000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: false,
+                })
+              })  
+            }
           },
         });
       }

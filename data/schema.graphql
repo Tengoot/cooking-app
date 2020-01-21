@@ -953,6 +953,7 @@ type Recipe implements Node {
   timeToPrepare: String!
   title: String!
   user: User!
+  createdAt: String!
 }
 
 """
