@@ -53,7 +53,7 @@ export default function RecipeDetailRoot(props) {
       <div className='Recipe-body'>
         <div className="Recipe-image">
         <SuspenseImage
-          src={recipe.imageUrl || 'https://via.placeholder.com/500'}
+          src={recipe.imageUrl ? 'http://localhost:3000/' + recipe.imageUrl : 'https://via.placeholder.com/500'}
         />
         </div>
         <div className='Recipe-content'>
@@ -64,7 +64,7 @@ export default function RecipeDetailRoot(props) {
           </div>
           <div className='Recipe-break' />
           <div className='Recipe-author-small'>
-            <SuspenseImage src={recipe.user.imageUrl || "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX30777075.jpg"} className='User-image-small' />
+            <SuspenseImage src={recipe.user.avatarUrl ? "http://localhost:3000" + recipe.user.avatarUrl : "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX30777075.jpg"} className='User-image-small' />
             <span><strong>{recipe.user.nick}</strong></span>
           </div>
           <div className='Recipe-break' />
@@ -87,7 +87,7 @@ export default function RecipeDetailRoot(props) {
           <div className='Recipe-user-space'>
             <div className='Recipe-label'>Przepis opublikowany przez</div>
             <div className='Recipe-break' />
-            <SuspenseImage src={recipe.user.imageUrl || "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX30777075.jpg"} className='User-image-big' />
+            <SuspenseImage src={recipe.user.avatarUrl ? "http://localhost:3000" + recipe.user.avatarUrl : "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX30777075.jpg"} className='User-image-big' />
             <span><strong>{recipe.user.nick}</strong></span>
           </div>
         </div>

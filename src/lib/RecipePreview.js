@@ -7,7 +7,7 @@ export default function RecipePreview(props) {
   return(
     <Link to={`/recipes/${recipe.id}`}>
       <div className='App-recipe-thumb'>
-        <SuspenseImage src={props.imageUrl} className='RecipeThumb-image' />
+        <SuspenseImage src={'http://localhost:3000/' + recipe.imageUrl} className='RecipeThumb-image' />
         <div className='RecipeThumb-content'>
           <div className='RecipeThumb-title'>
             <span>{recipe.title}</span>

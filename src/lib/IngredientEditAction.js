@@ -5,6 +5,7 @@ import Link from '../routing/Link';
 import UseMutation from '../UseMutation';
 import RoutingContext from '../routing/RoutingContext';
 import { toast } from 'react-toastify';
+import SuspenseImage from '../SuspenseImage';
 import { validateRequiredFields, validateSizeLimits, validatePositiveNumbers, validateValueLimits, validateImageExtension } from '../Validators';
 
 const { useCallback, useState, useContext } = React;
@@ -35,6 +36,7 @@ export default function IngredientEditAction(props) {
             averagePrice
             description
             kcal
+            imageUrl
           }
         }
       }
@@ -68,7 +70,7 @@ export default function IngredientEditAction(props) {
 
   const [image, setImage] = useState(
     { name: 'image', value: '', previewUrl: ingredient.imageUrl, valid: true,
-      validators: [validateImageExtension] }
+      dataUri: null, validators: [validateImageExtension] }
   );
 
   const [validation, setValidation] = useState({ valid: true, message: '' })
@@ -113,7 +115,6 @@ export default function IngredientEditAction(props) {
     [setDescription],
   );
 
-  // TODO: BASE64
   const onImageChange = useCallback(
     event => {
       const node = event.target;
@@ -125,15 +126,14 @@ export default function IngredientEditAction(props) {
       reader.onloadend = () => {
         newState.value = node.files[0].name;
         newState.previewUrl = reader.result;
-        setImage(newState);
       }
-      reader.readAsDataURL(node.files[0]);
+      newState.dataUri = reader.readAsDataURL(node.files[0]);
+      setImage(newState);
     },
     [setImage],
   );
 
   const runValidations = (validationState) => {
-    // TODO: , 'image'
     const fieldsToValidate = ['name', 'averagePrice', 'kcal', 'description'];
     fieldsToValidate.forEach((fieldName) => {
       const fieldState = eval(fieldName);
@@ -161,15 +161,21 @@ export default function IngredientEditAction(props) {
       setValidation(validationState);
 
       if(validationState.valid) {
+        let attributes = {
+          ingredientId: ingredient.id,
+          name: name.value,
+          averagePrice: averagePrice.value,
+          kcal: kcal.value,
+          description: description.value
+        }
+
+        if (image.previewUrl) {
+          attributes = { ...attributes, ...{ imageDataUri: image.previewUrl }}
+        }
+
         editIngredient({
           variables: {
-            input: {
-              ingredientId: ingredient.id,
-              name: name.value,
-              averagePrice: averagePrice.value,
-              kcal: kcal.value,
-              description: description.value
-            },
+            input: attributes,
           },
           updater: (store, response) => {
             const result = store.getRootField('editIngredient');
@@ -189,7 +195,7 @@ export default function IngredientEditAction(props) {
         });
       }
     },
-    []
+    [name, averagePrice, kcal, description, image]
   );
 
   return (
@@ -197,7 +203,7 @@ export default function IngredientEditAction(props) {
       <div></div>
       <div className="Recipe-body">
         <div className={image.valid ? 'Recipe-image' : 'Recipe-image Input-invalid'}>
-        <img src={image.previewUrl || "https://picsum.photos/600/400?blur"} onError={(e)=>{e.target.onerror = null; e.target.src="https://via.placeholder.com/150"}}/>
+        <SuspenseImage src={'http://localhost:3000' + image.previewUrl || "https://picsum.photos/600/400?blur"} onError={(e)=>{;e.target.onerror = null; e.target.src="https://via.placeholder.com/150"}}/>
             <div className="Auth-button">
               <input type="file" id="image-input" name="image" className="hidden" onChange={onImageChange}/>
               <button type="button"><label for="image-input">Wgraj zdjęcie</label></button>

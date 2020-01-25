@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 063e73c1793f73d0ef040e2929d156f5
+ * @relayHash 1ed327648e5fb03076bd6fdeb6529f1a
  */
 
 /* eslint-disable */
@@ -14,9 +14,15 @@ export type AddRecipeMutationInput = {|
   description: string,
   imageDataUri?: ?string,
   peopleCount: number,
+  recipeIngredientsAttributes?: ?$ReadOnlyArray<RecipeIngredientCreateAttributes>,
   shortDescription?: ?string,
   timeToPrepare: string,
   title: string,
+|};
+export type RecipeIngredientCreateAttributes = {|
+  amount: number,
+  ingredientId: string,
+  unit: string,
 |};
 export type RecipeNewActionAddRecipeMutationVariables = {|
   input: AddRecipeMutationInput

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 3ca3a2be9acfb51d17b22edb203f6ee8
+ * @relayHash c8c02350df32d51e8977e91c8011ffc5
  */
 
 /* eslint-disable */
@@ -13,6 +13,7 @@ export type EditIngredientMutationInput = {|
   averagePrice?: ?number,
   clientMutationId?: ?string,
   description?: ?string,
+  imageDataUri?: ?string,
   ingredientId: string,
   kcal?: ?number,
   name?: ?string,

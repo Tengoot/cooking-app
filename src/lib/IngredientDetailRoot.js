@@ -16,6 +16,7 @@ export default function IngredientDetailRoot(props) {
             averagePrice
             description
             kcal
+            imageUrl
           }
         }
       }
@@ -32,7 +33,7 @@ export default function IngredientDetailRoot(props) {
         <div></div>
         <div className='Recipe-body'>
           <div className="Recipe-image">
-            <SuspenseImage src={ingredient.imageUrl} />
+            <SuspenseImage src={'http://localhost:3000' + ingredient.imageUrl} />
           </div>
           <div className='Recipe-content'>
             <span className='Recipe-title'>{ingredient.name}</span>

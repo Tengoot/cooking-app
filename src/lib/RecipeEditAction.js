@@ -169,8 +169,6 @@ export default function RecipeEditAction(props) {
     [setPeopleCount],
   );
 
-
-  // TODO: BASE64
   const onImageChange = useCallback(
     event => {
       const node = event.target;
@@ -184,13 +182,13 @@ export default function RecipeEditAction(props) {
         newState.previewUrl = reader.result;
         setImage(newState);
       }
-      reader.readAsDataURL(node.files[0]);
+      newState.dataUri = reader.readAsDataURL(node.files[0]);
+      setImage(newState);
     },
     [setImage],
   );
 
   const runValidations = (validationState) => {
-    // TODO: , 'image'
     const fieldsToValidate = ['title', 'timeToPrepare', 'shortDescription', 'description', 'peopleCount'];
     fieldsToValidate.forEach((fieldName) => {
       const fieldState = eval(fieldName);
@@ -230,17 +228,23 @@ export default function RecipeEditAction(props) {
       setValidation(validationState);
 
       if(validationState.valid) {
+        let attributes = {
+          recipeId: recipe.id,
+          title: title.value,
+          timeToPrepare: timeToPrepare.value,
+          shortDescription: shortDescription.value,
+          description: description.value,
+          peopleCount: peopleCount.value,
+          recipeIngredientsAttributes: parseIngredientsInput(recipeIngredients),
+        }
+
+        if (image.previewUrl) {
+          attributes = { ...attributes, ...{ imageDataUri: image.previewUrl }}
+        }
+
         editRecipe({
           variables: {
-            input: {
-              recipeId: recipe.id,
-              title: title.value,
-              timeToPrepare: timeToPrepare.value,
-              shortDescription: shortDescription.value,
-              description: description.value,
-              peopleCount: peopleCount.value,
-              recipeIngredientsAttributes: parseIngredientsInput(recipeIngredients),
-            },
+            input: attributes,
           },
           updater: (store, response) => {
             if (response.editRecipe.recipe) {
@@ -259,7 +263,7 @@ export default function RecipeEditAction(props) {
         });
       }
     },
-    [title, timeToPrepare, shortDescription, description, recipeIngredients, peopleCount]
+    [title, timeToPrepare, shortDescription, description, recipeIngredients, peopleCount, image]
   );
 
   return (
@@ -267,7 +271,7 @@ export default function RecipeEditAction(props) {
       <div></div>
       <div className="Recipe-body">
         <div className={image.valid ? 'Recipe-image' : 'Recipe-image Input-invalid'}>
-          <img src={image.previewUrl || "https://via.placeholder.com/500"} onError={(e)=>{e.target.onerror = null; e.target.src="https://via.placeholder.com/150"}}/>
+          <SuspenseImage src={recipe.imageUrl ? 'http://localhost:3000' + recipe.imageUrl : 'https://via.placeholder.com/500'} onError={(e)=>{e.target.onerror = null; e.target.src="https://via.placeholder.com/150"}}/>
           <div className="Auth-button">
             <input type="file" id="image-input" name="image" className="hidden" onChange={onImageChange}/>
             <button type="button"><label for="image-input">Wgraj zdjęcie</label></button>
@@ -299,7 +303,7 @@ export default function RecipeEditAction(props) {
           </div>
           <div className='Recipe-break' />
           <div className='Recipe-author-small'>
-            <SuspenseImage src={recipe.user.imageUrl} className='User-image-small' />
+            <SuspenseImage src={recipe.user.avatarUrl ? "http://localhost:3000" + recipe.user.avatarUrl : "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX30777075.jpg"} className='User-image-small' />
             <span><strong>{recipe.user.nick}</strong></span>
           </div>
           <div className='Recipe-break' />
@@ -338,7 +342,7 @@ export default function RecipeEditAction(props) {
           <div className='Recipe-user-space'>
             <div className='Recipe-label'>Przepis opublikowany przez</div>
             <div className='Recipe-break' />
-            <SuspenseImage src={recipe.user.imageUrl} className='User-image-big' />
+            <SuspenseImage src={recipe.user.avatarUrl ? "http://localhost:3000" + recipe.user.avatarUrl : "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX30777075.jpg"} className='User-image-big' />
             <span><strong>{recipe.user.nick}</strong></span>
           </div>
         </div>

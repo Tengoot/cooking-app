@@ -73,8 +73,8 @@ export default function RecipeEditAction(props) {
   );
 
   const [image, setImage] = useState(
-    { name: 'image', value: '', previewUrl: "https://via.placeholder.com/500", valid: true,
-      validators: [validateImageExtension] }
+    { name: 'image', value: null, previewUrl: null, valid: true,
+      dataUri: null, validators: [validateImageExtension] }
   );
 
   const [validation, setValidation] = useState({ valid: true, message: '' })
@@ -130,7 +130,6 @@ export default function RecipeEditAction(props) {
   );
 
 
-  // TODO: BASE64
   const onImageChange = useCallback(
     event => {
       const node = event.target;
@@ -144,13 +143,13 @@ export default function RecipeEditAction(props) {
         newState.previewUrl = reader.result;
         setImage(newState);
       }
-      reader.readAsDataURL(node.files[0]);
+      newState.dataUri = reader.readAsDataURL(node.files[0]);
+      setImage(newState);
     },
     [setImage],
   );
 
   const runValidations = (validationState) => {
-    // TODO: , 'image'
     const fieldsToValidate = ['title', 'timeToPrepare', 'shortDescription', 'description', 'peopleCount'];
     fieldsToValidate.forEach((fieldName) => {
       const fieldState = eval(fieldName);
@@ -189,16 +188,22 @@ export default function RecipeEditAction(props) {
       setValidation(validationState);
 
       if(validationState.valid) {
+        let attributes = {
+          title: title.value,
+          timeToPrepare: timeToPrepare.value,
+          shortDescription: shortDescription.value,
+          description: description.value,
+          peopleCount: parseInt(peopleCount.value),
+          recipeIngredientsAttributes: parseIngredientsInput(recipeIngredients),
+        }
+
+        if (image.previewUrl) {
+          attributes = { ...attributes, ...{ imageDataUri: image.previewUrl }}
+        }
+        
         addRecipe({
           variables: {
-            input: {
-              title: title.value,
-              timeToPrepare: timeToPrepare.value,
-              shortDescription: shortDescription.value,
-              description: description.value,
-              peopleCount: parseInt(peopleCount.value),
-              recipeIngredientsAttributes: parseIngredientsInput(recipeIngredients),
-            },
+            input: attributes,
           },
           updater: (store, response) => {
             console.log(response);
@@ -226,7 +231,7 @@ export default function RecipeEditAction(props) {
       <div></div>
       <div className="Recipe-body">
         <div className={image.valid ? 'Recipe-image' : 'Recipe-image Input-invalid'}>
-          <img src={image.previewUrl || "https://via.placeholder.com/500"} onError={(e)=>{e.target.onerror = null; e.target.src="https://via.placeholder.com/150"}}/>
+          <SuspenseImage src={image.previewUrl || "https://via.placeholder.com/500"} onError={(e)=>{e.target.onerror = null; e.target.src="https://via.placeholder.com/150"}}/>
           <div className="Auth-button">
             <input type="file" id="image-input" name="image" className="hidden" onChange={onImageChange}/>
             <button type="button"><label for="image-input">Wgraj zdjęcie</label></button>

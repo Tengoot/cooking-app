@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ea5adfc7c7dc99829cad338f13725cd1
+ * @relayHash 4c806708a32ba8b0946303a2ad9339ec
  */
 
 /* eslint-disable */
@@ -19,6 +19,7 @@ export type IngredientEditActionQueryResponse = {|
     +averagePrice?: ?number,
     +description?: ?string,
     +kcal?: ?number,
+    +imageUrl?: ?string,
   |}
 |};
 export type IngredientEditActionQuery = {|
@@ -40,6 +41,7 @@ query IngredientEditActionQuery(
       averagePrice
       description
       kcal
+      imageUrl
     }
     id
   }
@@ -96,6 +98,13 @@ v6 = {
   "name": "kcal",
   "args": null,
   "storageKey": null
+},
+v7 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "imageUrl",
+  "args": null,
+  "storageKey": null
 };
 return {
   "kind": "Request",
@@ -123,7 +132,8 @@ return {
               (v3/*: any*/),
               (v4/*: any*/),
               (v5/*: any*/),
-              (v6/*: any*/)
+              (v6/*: any*/),
+              (v7/*: any*/)
             ]
           }
         ]
@@ -159,7 +169,8 @@ return {
               (v3/*: any*/),
               (v4/*: any*/),
               (v5/*: any*/),
-              (v6/*: any*/)
+              (v6/*: any*/),
+              (v7/*: any*/)
             ]
           }
         ]
@@ -170,11 +181,11 @@ return {
     "operationKind": "query",
     "name": "IngredientEditActionQuery",
     "id": null,
-    "text": "query IngredientEditActionQuery(\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ... on Ingredient {\n      id\n      name\n      averagePrice\n      description\n      kcal\n    }\n    id\n  }\n}\n",
+    "text": "query IngredientEditActionQuery(\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ... on Ingredient {\n      id\n      name\n      averagePrice\n      description\n      kcal\n      imageUrl\n    }\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '14b389d84d1ddbfd8a15622c49082ae5';
+(node/*: any*/).hash = 'a21a3de8013adeb8f02a8501f5dcdea1';
 module.exports = node;

@@ -103,6 +103,7 @@ input AddIngredientMutationInput {
   """
   clientMutationId: String
   description: String
+  imageDataUri: String
   kcal: Int
   name: String!
 }
@@ -157,6 +158,7 @@ input AddRecipeMutationInput {
   description: String!
   imageDataUri: String
   peopleCount: Int!
+  recipeIngredientsAttributes: [RecipeIngredientCreateAttributes!]
   shortDescription: String
   timeToPrepare: String!
   title: String!
@@ -473,6 +475,7 @@ input EditIngredientMutationInput {
   """
   clientMutationId: String
   description: String
+  imageDataUri: String
   ingredientId: ID!
   kcal: Int
   name: String
@@ -528,6 +531,7 @@ input EditRecipeMutationInput {
   imageDataUri: String
   peopleCount: Int
   recipeId: ID!
+  recipeIngredientsAttributes: [RecipeIngredientEditAttributes!]
   shortDescription: String
   timeToPrepare: String
   title: String
@@ -636,6 +640,7 @@ type Ingredient implements Node {
   averagePrice: Float
   description: String
   id: ID!
+  imageUrl: String
   kcal: Int
   name: String!
 }
@@ -1021,6 +1026,15 @@ type RecipeIngredientConnection {
 }
 
 """
+Attributes required for recipe ingredient creation on recipe
+"""
+input RecipeIngredientCreateAttributes {
+  amount: Int!
+  ingredientId: ID!
+  unit: String!
+}
+
+"""
 An edge in a connection.
 """
 type RecipeIngredientEdge {
@@ -1033,6 +1047,17 @@ type RecipeIngredientEdge {
   The item at the end of the edge.
   """
   node: RecipeIngredient
+}
+
+"""
+Attributes required for recipe ingredient creation on recipe
+"""
+input RecipeIngredientEditAttributes {
+  _destroy: Boolean
+  amount: Int
+  ingredientId: ID
+  recipeIngredientId: ID
+  unit: String
 }
 
 """

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 42744909d689cd9127d63b9ab4d8a833
+ * @relayHash bece168fe0922b85b1dc4af8293a54e5
  */
 
 /* eslint-disable */
@@ -15,9 +15,17 @@ export type EditRecipeMutationInput = {|
   imageDataUri?: ?string,
   peopleCount?: ?number,
   recipeId: string,
+  recipeIngredientsAttributes?: ?$ReadOnlyArray<RecipeIngredientEditAttributes>,
   shortDescription?: ?string,
   timeToPrepare?: ?string,
   title?: ?string,
+|};
+export type RecipeIngredientEditAttributes = {|
+  _destroy?: ?boolean,
+  amount?: ?number,
+  ingredientId?: ?string,
+  recipeIngredientId?: ?string,
+  unit?: ?string,
 |};
 export type RecipeEditActionEditRecipeMutationVariables = {|
   input: EditRecipeMutationInput
