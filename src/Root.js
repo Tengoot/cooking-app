@@ -20,6 +20,7 @@ export default function Root(props) {
         viewer {
           id
           nick
+          role
         }
       }
     `,
@@ -29,10 +30,12 @@ export default function Root(props) {
 
   if (!viewer) {
     localStorage.removeItem('signedIn');
+    localStorage.removeItem('role');
   }
 
   if (viewer && !localStorage.getItem('signedIn')) {
     localStorage.setItem('signedIn', viewer.id);
+    localStorage.setItem('role', viewer.role);
   }
 
   return (

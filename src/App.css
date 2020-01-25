@@ -110,6 +110,39 @@ a {
 	outline: none;
 }
 
+.Auth-button-smol {
+    position: relative;
+	display: inline-block;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.Auth-button-smol button {
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+	padding: 0;
+	width: 100px;
+	height: 35px;
+    border: 2px solid #ffc125;
+	border-radius: 10px;
+    background-color: #fff;
+	color: #ffc125;
+	letter-spacing: 1px;
+	font-size: 18px;
+	-webkit-transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
+	transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
+}
+
+.Auth-button-smol button:hover {
+    background-color: #ffc125;
+	color: #fff;
+}
+
+.Auth-button-smol button:focus {
+	outline: none;
+}
+
 .Auth-container {
     display: flex; 
     flex-flow: column nowrap;
@@ -554,3 +587,20 @@ span .Input-number {
 .hidden {
     display: none;
 }
+
+.text-btn {
+    border: none;
+    background-color: inherit;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+  }
+  
+  /* On mouse-over */
+  .text-btn:hover {background: #eee;}
+  
+  .success {color: green;}
+  .info {color: dodgerblue;}
+  .warning {color: orange;}
+  .danger {color: red;}
+  .default {color: black;}

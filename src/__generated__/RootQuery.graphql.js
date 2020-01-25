@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash a37e9008025dbebca4c5c91c5d3bda73
+ * @relayHash 181ecd4a6d9cdd25b2b672e7fc3d56df
  */
 
 /* eslint-disable */
@@ -9,11 +9,13 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+export type UserRoleEnum = "ADMIN" | "MODERATOR" | "USER" | "%future added value";
 export type RootQueryVariables = {||};
 export type RootQueryResponse = {|
   +viewer: ?{|
     +id: string,
     +nick: string,
+    +role: UserRoleEnum,
   |}
 |};
 export type RootQuery = {|
@@ -28,6 +30,7 @@ query RootQuery {
   viewer {
     id
     nick
+    role
   }
 }
 */
@@ -56,6 +59,13 @@ var v0 = [
         "name": "nick",
         "args": null,
         "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "role",
+        "args": null,
+        "storageKey": null
       }
     ]
   }
@@ -80,11 +90,11 @@ return {
     "operationKind": "query",
     "name": "RootQuery",
     "id": null,
-    "text": "query RootQuery {\n  viewer {\n    id\n    nick\n  }\n}\n",
+    "text": "query RootQuery {\n  viewer {\n    id\n    nick\n    role\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '8404974ce3feb958182f1c53708804b2';
+(node/*: any*/).hash = '8ded03e23be44eba01f00fcc3b2158a2';
 module.exports = node;

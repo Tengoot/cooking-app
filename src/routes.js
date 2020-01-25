@@ -23,18 +23,20 @@ const routes = [
       {
         path: '/',
         exact: true,
-        component: JSResource('notFoundPage', () => import('./lib/notFoundPage')),
-        prepare: params => {
-          const userQuery = require('./__generated__/RootQuery.graphql');
-          return {
-            userQuery: preloadQuery(
-              RelayEnvironment,
-              userQuery,
-              {},
-              { fetchPolicy: 'store-or-network' },
-            ),
-          };
-        },
+        component: JSResource('RecipeRootList', () => import('./lib/RecipeRootList')),
+        prepare: params => {},
+      },
+      {
+        path: '/recipes',
+        exact: true,
+        component: JSResource('RecipeRootList', () => import('./lib/RecipeRootList')),
+        prepare: params => {},
+      },
+      {
+        path: '/new-recipe',
+        exact: true,
+        component: JSResource('RecipeNewAction', () => import('./lib/RecipeNewAction')),
+        prepare: params => {},
       },
       {
         path: '/sign-in',
@@ -47,6 +49,23 @@ const routes = [
         exact: true,
         component: JSResource('SignUpAction', () => import('./lib/SignUpAction')),
         prepare: params => {},
+      },
+      {
+        path: '/recipes/:id/edit/',
+        component: JSResource('RecipeEditAction', () => import('./lib/RecipeEditAction')),
+        prepare: params => {
+          const RecipeEditQuery = require('./lib/__generated__/RecipeEditActionQuery.graphql');
+          return {
+            RecipeEditQuery: preloadQuery(
+              RelayEnvironment,
+              RecipeEditQuery,
+              {
+                id: params.id,
+              },
+              { fetchPolicy: 'store-or-network' },
+            )
+          }
+        }
       },
       {
         path: '/recipes/:id',
@@ -64,7 +83,41 @@ const routes = [
             )
           }
         }
-      }
+      },
+      {
+        path: '/ingredients/:id/edit/',
+        component: JSResource('IngredientEditAction', () => import('./lib/IngredientEditAction')),
+        prepare: params => {
+          const IngredientEditQuery = require('./lib/__generated__/IngredientEditActionQuery.graphql');
+          return {
+            IngredientEditQuery: preloadQuery(
+              RelayEnvironment,
+              IngredientEditQuery,
+              {
+                id: params.id,
+              },
+              { fetchPolicy: 'store-or-network' },
+            )
+          }
+        }
+      },
+      {
+        path: '/ingredients/:id',
+        component: JSResource('IngredientDetailRoot', () => import('./lib/IngredientDetailRoot')),
+        prepare: params => {
+          const IngredientDetailQuery = require('./lib/__generated__/IngredientDetailRootQuery.graphql');
+          return {
+            IngredientDetailQuery: preloadQuery(
+              RelayEnvironment,
+              IngredientDetailQuery,
+              {
+                id: params.id,
+              },
+              { fetchPolicy: 'store-or-network' },
+            )
+          }
+        }
+      },
     ],
   },
 ]

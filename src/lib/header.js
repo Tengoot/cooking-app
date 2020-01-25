@@ -9,10 +9,14 @@ class Header extends React.Component {
     window.addEventListener('scroll', () => {
       setInterval(() => { 
         let scrollPosition = Math.round(window.scrollY);
+        const node = document.getElementById('top-header');
+        if (!node) {
+          return null;
+        }
         if (scrollPosition > 100){
-          document.getElementById('top-header').classList.add('App-fixed-header');
+          node.classList.add('App-fixed-header');
         } else {
-          document.getElementById('top-header').classList.remove('App-fixed-header');
+          node.classList.remove('App-fixed-header');
         }
     }, 300);
     });
@@ -20,12 +24,12 @@ class Header extends React.Component {
 
   authButtons = () => (
     <nav className="Auth-header-buttons">
-        <Link className="Anchor-unstyled" to="/sign-in">
+        <Link to="/sign-in">
           <div id="sign-in-button" className="Auth-button">
             <button><span>Zaloguj</span></button>
           </div>
         </Link>
-        <Link className="Anchor-unstyled" to="/sign-up">
+        <Link to="/sign-up">
           <div id="sign-up-button" className="Auth-button">
             <button><span>Dołącz teraz</span></button>
           </div>
@@ -35,7 +39,7 @@ class Header extends React.Component {
 
   userButtons = () => (
     <nav className="Auth-header-buttons">
-        <Link className="Anchor-unstyled" to="/new">
+        <Link to="/new-recipe">
           <div id="sign-in-button" className="Auth-button">
             <button><span>Utwórz przepis</span></button>
           </div>

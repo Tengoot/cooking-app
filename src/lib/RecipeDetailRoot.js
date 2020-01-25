@@ -4,6 +4,7 @@ import { usePreloadedQuery } from 'react-relay/hooks';
 import ReactMarkdown from 'react-markdown';
 import SuspenseImage from '../SuspenseImage';
 import RecipeManagementActions from './RecipeManagementActions'
+import RecipeIngredients from './RecipeIngredients'
 
 export default function RecipeDetailRoot(props) {
   const { node: recipe } = usePreloadedQuery(
@@ -18,11 +19,13 @@ export default function RecipeDetailRoot(props) {
             imageUrl
             peopleCount
             createdAt
+            timeToPrepare
             recipeIngredients {
               id
               amount
               unit
               ingredient {
+                id
                 name
                 averagePrice
               }
@@ -40,7 +43,7 @@ export default function RecipeDetailRoot(props) {
     props.prepared.RecipeDetailQuery,
   )
 
-  if (recipe == null) {
+  if (recipe === null) {
     return(<div className='NotFoundLabel'>Recipe Not Found!</div>);
   }
 
@@ -72,9 +75,9 @@ export default function RecipeDetailRoot(props) {
           <div className='Recipe-ingredients-title'>
             { recipe.peopleCount ? 'Składniki dla ' + recipe.peopleCount + ' osób' : 'Składniki' }
           </div>
-          {/* <div>
-            <RecipeIngredientList recipeIngredients={seeds.recipeIngredients} />
-          </div> */}
+          <div>
+            <RecipeIngredients recipeIngredients={recipe.recipeIngredients} />
+          </div>
           <div className='Recipe-break' />
           <div className='Recipe-label'>Przygotowanie</div>
           <div className='Recipe-description'>

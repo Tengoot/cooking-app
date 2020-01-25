@@ -31,6 +31,7 @@ export default function signOutAction() {
         },
         updater: store => {
           localStorage.removeItem('signedIn');
+          localStorage.removeItem('role');
           router.history.push('/');
         }
       })

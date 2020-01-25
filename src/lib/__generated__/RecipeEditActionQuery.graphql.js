@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 25efbbb15a9dc7cb69816446de352344
+ * @relayHash 6493d0d7c4acbca29f981ec762ce0432
  */
 
 /* eslint-disable */
@@ -9,10 +9,10 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type RecipeDetailRootQueryVariables = {|
+export type RecipeEditActionQueryVariables = {|
   id: string
 |};
-export type RecipeDetailRootQueryResponse = {|
+export type RecipeEditActionQueryResponse = {|
   +node: ?{|
     +id?: string,
     +title?: string,
@@ -40,15 +40,15 @@ export type RecipeDetailRootQueryResponse = {|
     |},
   |}
 |};
-export type RecipeDetailRootQuery = {|
-  variables: RecipeDetailRootQueryVariables,
-  response: RecipeDetailRootQueryResponse,
+export type RecipeEditActionQuery = {|
+  variables: RecipeEditActionQueryVariables,
+  response: RecipeEditActionQueryResponse,
 |};
 */
 
 
 /*
-query RecipeDetailRootQuery(
+query RecipeEditActionQuery(
   $id: ID!
 ) {
   node(id: $id) {
@@ -245,7 +245,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "RecipeDetailRootQuery",
+    "name": "RecipeEditActionQuery",
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -282,7 +282,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "RecipeDetailRootQuery",
+    "name": "RecipeEditActionQuery",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
@@ -324,13 +324,13 @@ return {
   },
   "params": {
     "operationKind": "query",
-    "name": "RecipeDetailRootQuery",
+    "name": "RecipeEditActionQuery",
     "id": null,
-    "text": "query RecipeDetailRootQuery(\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ... on Recipe {\n      id\n      title\n      shortDescription\n      description\n      imageUrl\n      peopleCount\n      createdAt\n      timeToPrepare\n      recipeIngredients {\n        id\n        amount\n        unit\n        ingredient {\n          id\n          name\n          averagePrice\n        }\n      }\n      averageRating\n      user {\n        id\n        nick\n        avatarUrl\n      }\n    }\n    id\n  }\n}\n",
+    "text": "query RecipeEditActionQuery(\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ... on Recipe {\n      id\n      title\n      shortDescription\n      description\n      imageUrl\n      peopleCount\n      createdAt\n      timeToPrepare\n      recipeIngredients {\n        id\n        amount\n        unit\n        ingredient {\n          id\n          name\n          averagePrice\n        }\n      }\n      averageRating\n      user {\n        id\n        nick\n        avatarUrl\n      }\n    }\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e6efd4bc3858f4c3c1e53c19edab4ec9';
+(node/*: any*/).hash = 'dd8fc86856b8497c389ece6eea12636d';
 module.exports = node;

@@ -807,6 +807,7 @@ type Query {
     """
     last: Int
   ): IngredientConnection!
+  ingredientSearch(name: String!): [Ingredient!]!
 
   """
   Fetches an object given its ID.
@@ -944,6 +945,7 @@ type Query {
 type Recipe implements Node {
   averageRating: Float!
   comments: [Comment!]!
+  createdAt: String!
   description: String!
   id: ID!
   imageUrl: String
@@ -953,7 +955,6 @@ type Recipe implements Node {
   timeToPrepare: String!
   title: String!
   user: User!
-  createdAt: String!
 }
 
 """
