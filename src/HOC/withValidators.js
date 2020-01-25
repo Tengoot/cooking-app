@@ -68,7 +68,7 @@ export function withValidators(WrappedComponent) {
     }
 
     generateValidationState = (validationState, fieldState, errorMessage, validatingFunction) => {
-      const newState = fieldState;
+      const newState = Object.assign({}, fieldState);
       const value = fieldState.value;
       const validation = validatingFunction(value, newState);
 
