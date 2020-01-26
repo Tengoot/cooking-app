@@ -2,8 +2,8 @@ import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { useFragment } from 'react-relay/hooks';
 import { toast } from 'react-toastify';
+import RecipeCommentRoot from './RecipeCommentRoot';
 import UseMutation from '../UseMutation';
-import SuspenseImage from '../SuspenseImage';
 import { validateValueLimits, validateSizeLimits } from '../Validators';
 
 
@@ -49,7 +49,7 @@ export default function RecipeDetailComments(props) {
   );
 
   const [rating, setRating] = useState(
-    { name: 'rating', value: null, valid: true, maxValue: 5,
+    { name: 'rating', value: 0, valid: true, maxValue: 5,
       validators: [validateValueLimits] }
   );
 
@@ -106,17 +106,21 @@ export default function RecipeDetailComments(props) {
       const validationState = { valid: true, message: '' }
       runValidations(validationState);
       setValidation(validationState);
-
-      console.log(text, rating);
       
       if(validationState.valid) {
+        const attributes = { recipeId: props.recipe.id }
+        
+        if (parseInt(rating.value) !== 0) {
+          attributes.rating = parseInt(rating.value)
+        }
+
+        if(text.value) {
+          attributes.text = text.value
+        }
+
         addComment({
           variables: {
-            input: {
-              recipeId: props.recipe.id,
-              rating: parseInt(rating.value),
-              text: text.value,
-            },
+            input: attributes,
           },
           updater: (store, response) => {
             if (response.addComment.comment) {
@@ -150,18 +154,10 @@ export default function RecipeDetailComments(props) {
 
   const commentsComponents = () => {
     return comments.map((comment) => (
-      <div className="Recipe-Comment">
-        <div className='Recipe-author-small'>
-          <SuspenseImage src={comment.user.avatarUrl ? "http://localhost:3000" + comment.user.avatarUrl : "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX30777075.jpg"} className='User-image-small' />
-          <span><strong>{comment.user.nick}</strong></span>
-        </div>
-        <div className="Recipe-Comment-Rating">
-          {comment.rating ? `${comment.rating}/5 ⭐️` : null}
-        </div>
-        <div className="Recipe-Comment-Body">
-          <span>{comment.text}</span>
-        </div>
-      </div>
+      <RecipeCommentRoot
+        recipe={props.recipe}
+        comment={comment}
+      />
     ));
   }
 

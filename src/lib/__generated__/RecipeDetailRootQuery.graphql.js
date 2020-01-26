@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 5437dcfc4eb36d3228569b407fec9fe3
+ * @relayHash 7ab1ee7f857bf4abd8b68e173554b113
  */
 
 /* eslint-disable */
@@ -23,6 +23,7 @@ export type RecipeDetailRootQueryResponse = {|
     +peopleCount?: number,
     +createdAt?: string,
     +timeToPrepare?: string,
+    +averageRating?: number,
     +recipeIngredients?: $ReadOnlyArray<{|
       +id: string,
       +amount: number,
@@ -33,7 +34,6 @@ export type RecipeDetailRootQueryResponse = {|
         +averagePrice: ?number,
       |},
     |}>,
-    +averageRating?: number,
     +user?: {|
       +id: string,
       +nick: string,
@@ -64,6 +64,7 @@ query RecipeDetailRootQuery(
       peopleCount
       createdAt
       timeToPrepare
+      averageRating
       recipeIngredients {
         id
         amount
@@ -74,7 +75,6 @@ query RecipeDetailRootQuery(
           averagePrice
         }
       }
-      averageRating
       user {
         id
         nick
@@ -173,6 +173,13 @@ v9 = {
   "storageKey": null
 },
 v10 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "averageRating",
+  "args": null,
+  "storageKey": null
+},
+v11 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "recipeIngredients",
@@ -223,13 +230,6 @@ v10 = {
       ]
     }
   ]
-},
-v11 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "averageRating",
-  "args": null,
-  "storageKey": null
 },
 v12 = {
   "kind": "ScalarField",
@@ -389,11 +389,11 @@ return {
     "operationKind": "query",
     "name": "RecipeDetailRootQuery",
     "id": null,
-    "text": "query RecipeDetailRootQuery(\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ... on Recipe {\n      id\n      title\n      shortDescription\n      description\n      imageUrl\n      peopleCount\n      createdAt\n      timeToPrepare\n      recipeIngredients {\n        id\n        amount\n        unit\n        ingredient {\n          id\n          name\n          averagePrice\n        }\n      }\n      averageRating\n      user {\n        id\n        nick\n        avatarUrl\n      }\n      ...RecipeDetailComments_recipe\n    }\n    id\n  }\n}\n\nfragment RecipeDetailComments_recipe on Recipe {\n  comments {\n    id\n    rating\n    text\n    user {\n      id\n      avatarUrl\n      nick\n    }\n  }\n}\n",
+    "text": "query RecipeDetailRootQuery(\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ... on Recipe {\n      id\n      title\n      shortDescription\n      description\n      imageUrl\n      peopleCount\n      createdAt\n      timeToPrepare\n      averageRating\n      recipeIngredients {\n        id\n        amount\n        unit\n        ingredient {\n          id\n          name\n          averagePrice\n        }\n      }\n      user {\n        id\n        nick\n        avatarUrl\n      }\n      ...RecipeDetailComments_recipe\n    }\n    id\n  }\n}\n\nfragment RecipeDetailComments_recipe on Recipe {\n  comments {\n    id\n    rating\n    text\n    user {\n      id\n      avatarUrl\n      nick\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '6b93b157247a53f7e8ee73ccd0024c10';
+(node/*: any*/).hash = 'c5a4ce312cde509dc5335fc4963706f4';
 module.exports = node;
