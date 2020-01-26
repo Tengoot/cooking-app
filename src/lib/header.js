@@ -44,7 +44,24 @@ class Header extends React.Component {
             <button><span>Utwórz przepis</span></button>
           </div>
         </Link>
-        <SignOutAction />
+        <nav role="navigation">
+          <ul>
+            <li>
+              <img src={this.props.viewer.avatarUrl ? "http://localhost:3000" + this.props.viewer.avatarUrl : "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX30777075.jpg"} className='User-image-small' />
+              <span><strong>{this.props.viewer.nick}</strong></span>
+              <ul class="dropdown">
+                <li>
+                  <Link to="/shopping-lists/">
+                    <div id="shopping-list-button" className="Auth-button">
+                      <button><span>Listy zakupów</span></button>
+                    </div>
+                  </Link>
+                </li>
+                <li><SignOutAction /></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
       </nav>
   );
 

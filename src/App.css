@@ -114,7 +114,6 @@ a {
     position: relative;
 	display: inline-block;
     text-align: center;
-    margin-left: 10px;
 }
 
 .Auth-button-smol button {
@@ -143,6 +142,38 @@ a {
 	outline: none;
 }
 
+.Auth-button-wide {
+    position: relative;
+	display: inline-block;
+    text-align: center;
+}
+
+.Auth-button-wide button {
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+    padding: 0;
+    width: 70%;
+    white-space: pre-wrap;
+	height: 35px;
+    border: 2px solid #ffc125;
+	border-radius: 10px;
+    background-color: #fff;
+	color: #ffc125;
+	letter-spacing: 1px;
+	font-size: 18px;
+	-webkit-transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
+	transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
+}
+
+.Auth-button-wide button:hover {
+    background-color: #ffc125;
+	color: #fff;
+}
+
+.Auth-button-wide button:focus {
+	outline: none;
+}
 .Auth-container {
     display: flex; 
     flex-flow: column nowrap;
@@ -486,14 +517,14 @@ a {
     vertical-align: middle;
     width: 50px;
     height: 50px;
-    border-radius: 50%;
+    border-radius: 25%;
 }
 
 .User-image-big {
     vertical-align: middle;
     width: 150px;
     height: 150px;
-    border-radius: 50%;
+    border-radius: 40%;
 }
 
 .Form-edit input {
@@ -594,13 +625,128 @@ span .Input-number {
     font-size: 16px;
     cursor: pointer;
     display: inline-block;
+}
+  
+/* On mouse-over */
+.text-btn:hover {background: #eee;}
+
+.success {color: green;}
+.info {color: dodgerblue;}
+.warning {color: orange;}
+.danger {color: red;}
+.default {color: black;}
+
+.modal {
+    position: fixed;
+    padding: 24px;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 3px;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+}
+
+.meter { 
+	height: 20px;
+	position: relative;
+	background: rgb(99, 70, 105);
+	-moz-border-radius: 25px;
+	-webkit-border-radius: 25px;
+	border-radius: 25px;
+    padding: 10px;
+    width: 80%;
+    align-self: center;
+	box-shadow: inset 0 -1px 1px rgba(163, 134, 3, 0.3);
+}
+
+.meter > span {
+    display: block;
+    height: 100%;
+    text-align: center;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: rgb(250, 205, 56);
+    background-image: linear-gradient(
+        center bottom,
+        rgb(43,194,83) 37%,
+        rgb(84,240,84) 69%
+    );
+    box-shadow: 
+        inset 0 2px 9px  rgba(253, 251, 92, 0.3),
+        inset 0 -2px 6px rgba(192, 134, 8, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.meter > span:after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background-image: linear-gradient(
+      -45deg, 
+      rgba(255, 255, 255, .2) 25%, 
+      transparent 25%, 
+      transparent 50%, 
+      rgba(255, 255, 255, .2) 50%, 
+      rgba(255, 255, 255, .2) 75%, 
+      transparent 75%, 
+      transparent
+    );
+    z-index: 1;
+    background-size: 50px 50px;
+    animation: move 2s linear infinite;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    overflow: hidden;
   }
-  
-  /* On mouse-over */
-  .text-btn:hover {background: #eee;}
-  
-  .success {color: green;}
-  .info {color: dodgerblue;}
-  .warning {color: orange;}
-  .danger {color: red;}
-  .default {color: black;}
+
+
+  input[type=checkbox] + label {
+    font-style: italic;
+  } 
+  input[type=checkbox]:checked + label {
+    color: rgb(139, 139, 139);
+    font-style: line-through;
+} 
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+nav ul li {
+    display: block;
+    float: left;
+    margin-left: 20px;
+    position: relative;
+    text-decoration: none;
+    transition-duration: 0.5s;
+}
+
+nav ul li ul {
+    opacity: 0;
+    min-width: 5rem;
+    position: absolute;
+    transition: all 0.5s ease;
+    margin-top: 1rem;
+    left: 0;
+}
+
+nav ul li:hover > ul,
+nav ul li:focus-within > ul, /* this is the line we add */
+nav ul li ul:hover {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+}
+
+nav ul li ul li {
+    clear: both;
+    width: 100%;
+}

@@ -33,6 +33,12 @@ const routes = [
         prepare: params => {},
       },
       {
+        path: '/shopping-lists',
+        exact: true,
+        component: JSResource('ShoppingListRootList', () => import('./lib/ShoppingListRootList')),
+        prepare: params => {},
+      },
+      {
         path: '/new-recipe',
         exact: true,
         component: JSResource('RecipeNewAction', () => import('./lib/RecipeNewAction')),
@@ -66,6 +72,23 @@ const routes = [
             )
           }
         }
+      },
+      {
+        path: '/shopping-lists/:id',
+        component: JSResource('ShoppingListRoot', () => import('./lib/ShoppingListRoot')),
+        prepare: params => {
+          const ShoppingListRootQuery = require('./lib/__generated__/ShoppingListRootQuery.graphql');
+          return {
+            ShoppingListRootQuery: preloadQuery(
+              RelayEnvironment,
+              ShoppingListRootQuery,
+              {
+                id: params.id,
+              },
+              { fetchPolicy: 'store-or-network', fetchKey: Date.now() },
+            )
+          }
+        },
       },
       {
         path: '/recipes/:id',
