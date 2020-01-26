@@ -38,7 +38,7 @@ export default function RecipeManagementActions(props) {
 
   const managementComponents = () => {
     const isAuthor = props.user && localStorage.getItem('signedIn') === props.user.id;
-    const isAdmin = localStorage.getItem('role') === 'MODERATOR'
+    const isAdmin = localStorage.getItem('role') === 'MODERATOR' || localStorage.getItem('role') === 'ADMIN'
     if (isAuthor || isAdmin) {
       return (
         <div className='Recipe-management-buttons'>

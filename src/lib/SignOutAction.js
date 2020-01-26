@@ -20,7 +20,6 @@ const SignInMutation = graphql`
 export default function signOutAction() {
   const [isSignOutPending, signOut] = UseMutation(SignInMutation);
   const router = useContext(RoutingContext);
-  //: DOdać tu html przycisku, akcje onClick mutacja i redirect i tyle, przycisk jest na headerze
 
   const onClick = useCallback(
     event => {
@@ -32,7 +31,7 @@ export default function signOutAction() {
         updater: store => {
           localStorage.removeItem('signedIn');
           localStorage.removeItem('role');
-          router.history.push('/');
+          window.open('/', '_self');
         }
       })
     },

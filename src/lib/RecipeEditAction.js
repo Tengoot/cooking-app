@@ -113,7 +113,7 @@ export default function RecipeEditAction(props) {
   );
 
   const [image, setImage] = useState(
-    { name: 'image', value: '', previewUrl: recipe.imageUrl, valid: true,
+    { name: 'image', value: null, previewUrl: recipe.imageUrl, valid: true,
       validators: [validateImageExtension] }
   );
 
@@ -178,7 +178,7 @@ export default function RecipeEditAction(props) {
 
       let reader = new FileReader();
       reader.onloadend = () => {
-        newState.value = node.files[0].name;
+        newState.value = reader.result;
         newState.previewUrl = reader.result;
         setImage(newState);
       }
@@ -238,8 +238,8 @@ export default function RecipeEditAction(props) {
           recipeIngredientsAttributes: parseIngredientsInput(recipeIngredients),
         }
 
-        if (image.previewUrl) {
-          attributes = { ...attributes, ...{ imageDataUri: image.previewUrl }}
+        if (image.value) {
+          attributes = { ...attributes, ...{ imageDataUri: image.value }}
         }
 
         editRecipe({
