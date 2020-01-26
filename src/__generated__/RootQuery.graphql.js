@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 181ecd4a6d9cdd25b2b672e7fc3d56df
+ * @relayHash 8dd71fb475cd4948aa239e2487e31f28
  */
 
 /* eslint-disable */
@@ -16,6 +16,7 @@ export type RootQueryResponse = {|
     +id: string,
     +nick: string,
     +role: UserRoleEnum,
+    +avatarUrl: ?string,
   |}
 |};
 export type RootQuery = {|
@@ -31,6 +32,7 @@ query RootQuery {
     id
     nick
     role
+    avatarUrl
   }
 }
 */
@@ -66,6 +68,13 @@ var v0 = [
         "name": "role",
         "args": null,
         "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "avatarUrl",
+        "args": null,
+        "storageKey": null
       }
     ]
   }
@@ -90,11 +99,11 @@ return {
     "operationKind": "query",
     "name": "RootQuery",
     "id": null,
-    "text": "query RootQuery {\n  viewer {\n    id\n    nick\n    role\n  }\n}\n",
+    "text": "query RootQuery {\n  viewer {\n    id\n    nick\n    role\n    avatarUrl\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '8ded03e23be44eba01f00fcc3b2158a2';
+(node/*: any*/).hash = 'e358a49a38375b7b38dc572671ff7b24';
 module.exports = node;

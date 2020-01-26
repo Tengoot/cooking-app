@@ -21,6 +21,7 @@ export default function Root(props) {
           id
           nick
           role
+          avatarUrl
         }
       }
     `,

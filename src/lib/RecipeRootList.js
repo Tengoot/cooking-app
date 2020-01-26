@@ -6,7 +6,7 @@ import Link from '../routing/Link';
 
 const SUSPENSE_CONFIG = { timeoutMs: 2000 };
 
-const { useCallback, useState, useTransition, Suspense } = React;
+const { useCallback, useState, useTransition } = React;
 
 export default function RecipeRootList(props) {
   const [count, setCount] = useState(10);
@@ -66,15 +66,18 @@ export default function RecipeRootList(props) {
     }
   }
 
+  const actualCount = data.recipeList.edges.length;
+
   return(
     <div className='RecipeThumb-List-Container'>
       {newRecipeButton()}
       <div className='RecipeThumb-List'>
         <div className='RecipeThumb-Column'>
-          {recipeComponents.slice(0, (count/2))}
+          {recipeComponents.slice((actualCount/2), actualCount)}
+          
         </div>
         <div className='RecipeThumb-Column'>
-          {recipeComponents.slice((count/2), count)}
+          {recipeComponents.slice(0, (actualCount/2))}
         </div>
       </div>
       <div className="RecipeThumb-List-pagination-label" onClick={loadMore}>

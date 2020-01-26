@@ -39,7 +39,7 @@ export default function signOutAction() {
   );
 
   return (
-    <div id="sign-up-button" className="Auth-button">
+    <div id="sign-out-button" className="Auth-button">
       <button onClick={onClick}><span>Wyloguj</span></button>
     </div>
   );
