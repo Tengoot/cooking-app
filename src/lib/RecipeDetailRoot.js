@@ -4,6 +4,7 @@ import { usePreloadedQuery } from 'react-relay/hooks';
 import ReactMarkdown from 'react-markdown';
 import ReactDOM from 'react-dom';
 import { toast } from 'react-toastify';
+import RecipeDetailComments from './RecipeDetailComments'
 import UseMutation from '../UseMutation';
 import SuspenseImage from '../SuspenseImage';
 import RecipeManagementActions from './RecipeManagementActions'
@@ -72,6 +73,7 @@ export default function RecipeDetailRoot(props) {
             peopleCount
             createdAt
             timeToPrepare
+            averageRating
             recipeIngredients {
               id
               amount
@@ -88,6 +90,7 @@ export default function RecipeDetailRoot(props) {
               nick
               avatarUrl
             }
+            ...RecipeDetailComments_recipe
           }
         }
       }
@@ -141,6 +144,7 @@ export default function RecipeDetailRoot(props) {
       event.preventDefault();
       const validationState = { valid: true, message: '' }
       runValidations(validationState);
+
       if(validationState.valid) {
         addShoppingList({
           variables: {
@@ -205,7 +209,9 @@ export default function RecipeDetailRoot(props) {
 
   return (
     <div className='Recipe-container'>
-      <div className='Recipe-comments'>Column for comments</div>
+      <div className='Recipe-comments'>
+        <RecipeDetailComments recipe={recipe} />
+      </div>
       <div className='Recipe-body'>
         <div className="Recipe-image">
         <SuspenseImage
@@ -217,6 +223,9 @@ export default function RecipeDetailRoot(props) {
           <div className='Recipe-title-thumb'>
             <span>Dodano: {recipe.createdAt}</span>
             <span>Czas przygotowania: {recipe.timeToPrepare}</span>
+          </div>
+          <div>
+            {recipe.averageRating ? "⭐️".repeat(recipe.averageRating) : null}
           </div>
           <div className='Recipe-break' />
           <div className='Recipe-author-small'>

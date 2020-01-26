@@ -118,11 +118,12 @@ export default function signUpAction() {
               password: password.value,
             },
           },
-          updater: store => {
+          updater: (store, response) => {
             const result = store.getRootField('signUp');
             if (result && result.getLinkedRecord('user')) {
-              localStorage.setItem('signedIn', result.getLinkedRecord('user').getDataId());
-              router.history.push('/');
+              localStorage.setItem('signedIn', response.signUp.user.id);
+              localStorage.setItem('signedIn', 'USER');
+              window.open('/', '_self');
             } else {
               result.getLinkedRecord('errors').forEach((error) => {
                 toast.error(error, {

@@ -90,7 +90,7 @@ export default function signInAction() {
               const role = response.signIn.user.role;
               localStorage.setItem('signedIn', resultId);
               localStorage.setItem('role', role);
-              router.history.push('/');
+              window.open('/', '_self');
             } else {
               toast.error('Błędny login lub hasło', {
                 position: "top-center",
