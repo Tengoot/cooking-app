@@ -7,7 +7,7 @@
     "gh-pages": "^2.2.0",
     "glamor": "^2.20.40",
     "history": "^4.10.1",
-    "react": "0.0.0-experimental-f42431abe",
+    "react": "0.14.0",
     "react-dom": "0.0.0-experimental-f42431abe",
     "react-markdown": "^4.2.2",
     "react-relay": "0.0.0-experimental-5f1cb628",
