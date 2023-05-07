@@ -15,7 +15,7 @@
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.1.2",
     "react-router-relay": "^0.14.0",
-    "react-scripts": "^3.3.0",
+    "react-scripts": "^5.0.1",
     "react-toastify": "^5.5.0",
     "relay-runtime": "8.0.0"
   },
